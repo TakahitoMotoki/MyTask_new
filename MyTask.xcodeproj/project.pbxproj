@@ -7,15 +7,31 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		080C2356AB76CCB2A5321B25 /* Pods_MyTask.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E9EC69F96D8AAB22A1D8856D /* Pods_MyTask.framework */; };
+		CD1422FD200CF00E00EE1DBC /* TasksCreateController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD1422FC200CF00E00EE1DBC /* TasksCreateController.swift */; };
+		CD1DDA422010888700446F59 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD1DDA412010888700446F59 /* LoginViewController.swift */; };
+		CD1DDA4420108FC300446F59 /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD1DDA4320108FC300446F59 /* SignUpViewController.swift */; };
+		CD1DDA4620108FD800446F59 /* ForgetPasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD1DDA4520108FD800446F59 /* ForgetPasswordViewController.swift */; };
+		CD1DDA482011D8E300446F59 /* SettingController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD1DDA472011D8E300446F59 /* SettingController.swift */; };
 		CD527F3120071BE70018D37C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD527F3020071BE70018D37C /* AppDelegate.swift */; };
 		CD527F3320071BE70018D37C /* FirstViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD527F3220071BE70018D37C /* FirstViewController.swift */; };
 		CD527F3520071BE70018D37C /* SecondViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD527F3420071BE70018D37C /* SecondViewController.swift */; };
 		CD527F3820071BE70018D37C /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CD527F3620071BE70018D37C /* Main.storyboard */; };
 		CD527F3A20071BE70018D37C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CD527F3920071BE70018D37C /* Assets.xcassets */; };
 		CD527F3D20071BE70018D37C /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CD527F3B20071BE70018D37C /* LaunchScreen.storyboard */; };
+		CD807A1A201C6C8C00EC7BD0 /* UserController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD807A19201C6C8C00EC7BD0 /* UserController.swift */; };
+		CD807A1C201C6C9800EC7BD0 /* TimelineController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD807A1B201C6C9800EC7BD0 /* TimelineController.swift */; };
+		CDC88FEF200B7631009ADC1E /* Input.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDC88FEE200B7631009ADC1E /* Input.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		89F110D590C9A50A9565C801 /* Pods-MyTask.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MyTask.release.xcconfig"; path = "Pods/Target Support Files/Pods-MyTask/Pods-MyTask.release.xcconfig"; sourceTree = "<group>"; };
+		B6B34B54694C90289578B985 /* Pods-MyTask.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MyTask.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MyTask/Pods-MyTask.debug.xcconfig"; sourceTree = "<group>"; };
+		CD1422FC200CF00E00EE1DBC /* TasksCreateController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TasksCreateController.swift; sourceTree = "<group>"; };
+		CD1DDA412010888700446F59 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
+		CD1DDA4320108FC300446F59 /* SignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
+		CD1DDA4520108FD800446F59 /* ForgetPasswordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgetPasswordViewController.swift; sourceTree = "<group>"; };
+		CD1DDA472011D8E300446F59 /* SettingController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingController.swift; sourceTree = "<group>"; };
 		CD527F2D20071BE70018D37C /* MyTask.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MyTask.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CD527F3020071BE70018D37C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		CD527F3220071BE70018D37C /* FirstViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstViewController.swift; sourceTree = "<group>"; };
@@ -24,6 +40,10 @@
 		CD527F3920071BE70018D37C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		CD527F3C20071BE70018D37C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		CD527F3E20071BE70018D37C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		CD807A19201C6C8C00EC7BD0 /* UserController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserController.swift; sourceTree = "<group>"; };
+		CD807A1B201C6C9800EC7BD0 /* TimelineController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimelineController.swift; sourceTree = "<group>"; };
+		CDC88FEE200B7631009ADC1E /* Input.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Input.swift; sourceTree = "<group>"; };
+		E9EC69F96D8AAB22A1D8856D /* Pods_MyTask.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MyTask.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -31,17 +51,37 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				080C2356AB76CCB2A5321B25 /* Pods_MyTask.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		3CE759DBEF912A9CE0B0E113 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				E9EC69F96D8AAB22A1D8856D /* Pods_MyTask.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		3EFE0F1FAE08768052B5F527 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				B6B34B54694C90289578B985 /* Pods-MyTask.debug.xcconfig */,
+				89F110D590C9A50A9565C801 /* Pods-MyTask.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 		CD527F2420071BE70018D37C = {
 			isa = PBXGroup;
 			children = (
 				CD527F2F20071BE70018D37C /* MyTask */,
 				CD527F2E20071BE70018D37C /* Products */,
+				3EFE0F1FAE08768052B5F527 /* Pods */,
+				3CE759DBEF912A9CE0B0E113 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -58,7 +98,15 @@
 			children = (
 				CD527F3020071BE70018D37C /* AppDelegate.swift */,
 				CD527F3220071BE70018D37C /* FirstViewController.swift */,
+				CD1422FC200CF00E00EE1DBC /* TasksCreateController.swift */,
+				CD1DDA412010888700446F59 /* LoginViewController.swift */,
+				CD1DDA472011D8E300446F59 /* SettingController.swift */,
+				CD1DDA4320108FC300446F59 /* SignUpViewController.swift */,
+				CD1DDA4520108FD800446F59 /* ForgetPasswordViewController.swift */,
+				CD807A19201C6C8C00EC7BD0 /* UserController.swift */,
+				CD807A1B201C6C9800EC7BD0 /* TimelineController.swift */,
 				CD527F3420071BE70018D37C /* SecondViewController.swift */,
+				CDC88FEE200B7631009ADC1E /* Input.swift */,
 				CD527F3620071BE70018D37C /* Main.storyboard */,
 				CD527F3920071BE70018D37C /* Assets.xcassets */,
 				CD527F3B20071BE70018D37C /* LaunchScreen.storyboard */,
@@ -74,9 +122,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = CD527F4120071BE70018D37C /* Build configuration list for PBXNativeTarget "MyTask" */;
 			buildPhases = (
+				3AD3D23A4D42ECEF65E7A2CB /* [CP] Check Pods Manifest.lock */,
 				CD527F2920071BE70018D37C /* Sources */,
 				CD527F2A20071BE70018D37C /* Frameworks */,
 				CD527F2B20071BE70018D37C /* Resources */,
+				E85A28693952CACE54019854 /* [CP] Embed Pods Frameworks */,
+				543C56AE3404653796534DB1 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -134,13 +185,91 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		3AD3D23A4D42ECEF65E7A2CB /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-MyTask-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		543C56AE3404653796534DB1 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-MyTask/Pods-MyTask-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		E85A28693952CACE54019854 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-MyTask/Pods-MyTask-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/Charts/Charts.framework",
+				"${BUILT_PRODUCTS_DIR}/DZNEmptyDataSet/DZNEmptyDataSet.framework",
+				"${BUILT_PRODUCTS_DIR}/FontAwesomeKit/FontAwesomeKit.framework",
+				"${BUILT_PRODUCTS_DIR}/NCMB/NCMB.framework",
+				"${BUILT_PRODUCTS_DIR}/RAMAnimatedTabBarController/RAMAnimatedTabBarController.framework",
+				"${BUILT_PRODUCTS_DIR}/SCLAlertView/SCLAlertView.framework",
+				"${BUILT_PRODUCTS_DIR}/SWTableViewCell/SWTableViewCell.framework",
+				"${BUILT_PRODUCTS_DIR}/SwiftyButton/SwiftyButton.framework",
+				"${BUILT_PRODUCTS_DIR}/TextFieldEffects/TextFieldEffects.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Charts.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/DZNEmptyDataSet.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FontAwesomeKit.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/NCMB.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RAMAnimatedTabBarController.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SCLAlertView.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SWTableViewCell.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftyButton.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/TextFieldEffects.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-MyTask/Pods-MyTask-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		CD527F2920071BE70018D37C /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CD1DDA482011D8E300446F59 /* SettingController.swift in Sources */,
+				CD807A1C201C6C9800EC7BD0 /* TimelineController.swift in Sources */,
+				CD1DDA422010888700446F59 /* LoginViewController.swift in Sources */,
+				CD807A1A201C6C8C00EC7BD0 /* UserController.swift in Sources */,
+				CD1DDA4420108FC300446F59 /* SignUpViewController.swift in Sources */,
+				CDC88FEF200B7631009ADC1E /* Input.swift in Sources */,
 				CD527F3520071BE70018D37C /* SecondViewController.swift in Sources */,
 				CD527F3120071BE70018D37C /* AppDelegate.swift in Sources */,
+				CD1422FD200CF00E00EE1DBC /* TasksCreateController.swift in Sources */,
+				CD1DDA4620108FD800446F59 /* ForgetPasswordViewController.swift in Sources */,
 				CD527F3320071BE70018D37C /* FirstViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -276,6 +405,7 @@
 		};
 		CD527F4220071BE70018D37C /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = B6B34B54694C90289578B985 /* Pods-MyTask.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
@@ -291,6 +421,7 @@
 		};
 		CD527F4320071BE70018D37C /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 89F110D590C9A50A9565C801 /* Pods-MyTask.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;

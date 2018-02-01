@@ -11,12 +11,12 @@ import UIKit
 import NCMB
 import SCLAlertView
 
-class SignUpViewController: UIViewController {
+class SignUpViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var email: UITextField!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        email.delegate = self
     }
     
     override func didReceiveMemoryWarning() {
@@ -39,5 +39,12 @@ class SignUpViewController: UIViewController {
     
     @IBAction func goToLogin() {
         self.dismiss(animated: true, completion: nil)
+    }
+    
+    // This func is used to close Keyboard called by TextField
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool{
+        // キーボードを閉じる
+        textField.resignFirstResponder()
+        return true
     }
 }

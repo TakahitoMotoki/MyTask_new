@@ -24,6 +24,9 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         
         // Hide input string
         passwd.isSecureTextEntry = true
+        
+        email.delegate = self
+        passwd.delegate = self
     }
     // !---   Not Completed End   ---!
     
@@ -38,9 +41,6 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
                 // Failure of Login
                 self.error.text = "EmailとPasswordのどちらか、もしくはその両方が間違っています"
                 self.error.textColor = UIColor.red
-                print(self.email.text)
-                print(self.passwd.text)
-                print(error)
             } else {
                 // Success of Login
                 print(error)
@@ -62,4 +62,11 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         
     }
     // !---   Not Completed End   ---!
+    
+    // This func is used to close Keyboard called by TextField
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool{
+        // キーボードを閉じる
+        textField.resignFirstResponder()
+        return true
+    }
 }

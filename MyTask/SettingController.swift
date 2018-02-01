@@ -9,10 +9,9 @@
 import Foundation
 import UIKit
 import NCMB
+import SCLAlertView
 
 class SettigController: UIViewController, UITableViewDelegate, UITableViewDataSource {
-    let SECTION_NUMBER =  [1]
-    
     override func viewDidLoad() {
         super.viewDidLoad()
     }
@@ -23,11 +22,7 @@ class SettigController: UIViewController, UITableViewDelegate, UITableViewDataSo
     
     // !---   TableView Required Method Start   ---!
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return SECTION_NUMBER[section]
-    }
-    
-    func numberOfSections(in tableView: UITableView) -> Int {
-        return SECTION_NUMBER.count
+        return 1
     }
     
     // Decide the value of mycell
@@ -37,14 +32,15 @@ class SettigController: UIViewController, UITableViewDelegate, UITableViewDataSo
         return cell
     }
     
+    // This function is called when mycell is tapped
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let alert = UIAlertController(title: "", message: "Logoutしますか?", preferredStyle: .alert)
-        let action1 = UIAlertAction(title: "Logout", style: .default) { (action1) in
+        let alertView = SCLAlertView()
+        alertView.addButton("ログアウト") {
             NCMBUser.logOut()
+            self.dismiss(animated: true, completion: nil)
         }
-        let action2 = UIAlertAction(title: "　キャンセル", style: .default) { (acton2) in
-            alert.dismiss(animated: true, completion: nil)
-        }
+        alertView.showSuccess("ログアウトしますか?", subTitle: "", closeButtonTitle: "キャンセル")
+        
     }
     // !---   TableView Required Method End   ---!
 }

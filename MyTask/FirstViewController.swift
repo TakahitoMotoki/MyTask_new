@@ -14,9 +14,8 @@ import UIKit
 import NCMB
 import SCLAlertView
 import SwiftyButton
-import DZNEmptyDataSet
 
-class FirstViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, DZNEmptyDataSetSource, DZNEmptyDataSetDelegate {
+class FirstViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     @IBOutlet weak var level_container: UILabel!
     @IBOutlet weak var experience_bar: UIProgressView!
     @IBOutlet weak var sort_label: UILabel!
@@ -59,11 +58,6 @@ class FirstViewController: UIViewController, UITableViewDelegate, UITableViewDat
     
     // !---   TableView Required Method Start   ---!
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 1
-    }
-    
-    // Decide the number of mycell. (Delegate method, required)
-    func numberOfSections(in tableView: UITableView) -> Int {
         if cell_number == nil {
             return 0
         } else {
@@ -77,28 +71,31 @@ class FirstViewController: UIViewController, UITableViewDelegate, UITableViewDat
     
     // Decide the value of mycell
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell: UITableViewCell = UITableViewCell(style: .subtitle, reuseIdentifier: "mycell")
+        let cell = tasks_table.dequeueReusableCell(withIdentifier: "mycell") as! InputCell
+        
         if cell_number != nil {
             if sort_pointer != 0 {
-                for index in cell_pointer...tasks.count - 1 {
+                for index in cell_pointer...tasks.count {
                     if sort_pointer == tasks[index].object(forKey: "type_id") as! Int {
                         cell_pointer = index + 1
                         // Input title into cell
-                        cell.textLabel!.text = tasks[index].object(forKey: "title") as? String
+                        cell.titleLabel.text = tasks[index].object(forKey: "title") as? String
                         let weight = tasks[index].object(forKey: "weight") as! Int
-                        cell.detailTextLabel!.text = "weight: \(weight)"
+                        cell.weightLabel.text = "weight: \(weight)"
+                        cell.weightImage.layer.cornerRadius = 12
+                        cell.weightImage.clipsToBounds = true
                         
                         // Decide background color of cell
                         if weight >= 80 {
-                            cell.backgroundColor = UIColor(red: 1.0, green: 0, blue: 0, alpha: 0.52)
+                            cell.weightImage.image = UIImage(named: "Red")
                         } else if weight >= 60 {
-                            cell.backgroundColor = UIColor(red: 1.0, green: 0.55, blue: 0, alpha: 0.52)
+                            cell.weightImage.image = UIImage(named: "Orange")
                         } else if weight >= 40 {
-                            cell.backgroundColor = UIColor(red: 1.0, green: 1.0, blue: 0, alpha: 0.52)
+                            cell.weightImage.image = UIImage(named: "Yellow")
                         } else if weight >= 20 {
-                            cell.backgroundColor = UIColor(red: 0, green: 0, blue: 1.0, alpha: 0.52)
+                            cell.weightImage.image = UIImage(named: "Blue")
                         } else {
-                            cell.backgroundColor = UIColor(red: 0, green: 1.0, blue: 0, alpha: 0.52)
+                            cell.weightImage.image = UIImage(named: "Green")
                         }
                         return cell
                     }
@@ -106,21 +103,23 @@ class FirstViewController: UIViewController, UITableViewDelegate, UITableViewDat
             } else {
             
                 // Input title into cell
-                cell.textLabel!.text = tasks[Int(indexPath[0])].object(forKey: "title") as? String
-                let weight = tasks[Int(indexPath[0])].object(forKey: "weight") as! Int
-                cell.detailTextLabel!.text = "weight: \(weight)"
+                cell.titleLabel.text = tasks[indexPath.row].object(forKey: "title") as? String
+                let weight = tasks[indexPath.row].object(forKey: "weight") as! Int
+                cell.weightLabel.text = "weight: \(weight)"
+                cell.weightImage.layer.cornerRadius = 12
+                cell.weightImage.clipsToBounds = true
                 
                 // Decide background color of cell
                 if weight >= 80 {
-                    cell.backgroundColor = UIColor(red: 1.0, green: 0, blue: 0, alpha: 0.52)
+                    cell.weightImage.image = UIImage(named: "Red")
                 } else if weight >= 60 {
-                    cell.backgroundColor = UIColor(red: 1.0, green: 0.55, blue: 0, alpha: 0.52)
+                    cell.weightImage.image = UIImage(named: "Orange")
                 } else if weight >= 40 {
-                    cell.backgroundColor = UIColor(red: 1.0, green: 1.0, blue: 0, alpha: 0.52)
+                    cell.weightImage.image = UIImage(named: "Yellow")
                 } else if weight >= 20 {
-                    cell.backgroundColor = UIColor(red: 0, green: 0, blue: 1.0, alpha: 0.52)
+                    cell.weightImage.image = UIImage(named: "Blue")
                 } else {
-                    cell.backgroundColor = UIColor(red: 0, green: 1.0, blue: 0, alpha: 0.52)
+                    cell.weightImage.image = UIImage(named: "Green")
                 }
             }
         }
@@ -131,22 +130,13 @@ class FirstViewController: UIViewController, UITableViewDelegate, UITableViewDat
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let alertView = SCLAlertView()
         alertView.addButton("完了") {
-            self.done(indexPath: indexPath[0])
+            self.done(indexPath: indexPath.row)
         }
         alertView.addButton("削除") {
-            self.delete(indexPath: indexPath[0])
+            self.delete(indexPath: indexPath.row)
         }
-        alertView.showSuccess(tasks[Int(indexPath[0])].object(forKey: "title") as! String, subTitle: "が選択されました", closeButtonTitle: "閉じる")
-    }
-
-    // Margin-top of mycell.
-    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 0
-    }
-    
-    // Margin-bottom of mycell.
-    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
-        return 10
+        alertView.showSuccess(tasks[Int(indexPath.row)].object(forKey: "title") as! String, subTitle: "が選択されました", closeButtonTitle: "閉じる")
+        tasks_table.reloadData()
     }
     // !---   TableView Required Method End   ---!
     
@@ -291,13 +281,5 @@ class FirstViewController: UIViewController, UITableViewDelegate, UITableViewDat
         }
         diff = exp_total - exp_user
         return ["level": level, "diff": diff]
-    }
-    
-    func setImageWhenTableEmpty(forEmptyDataSet tableView: UITableView!) -> UIImage! {
-        return UIImage(named: "test")
-    }
-    
-    func setImageWhenTableEmpty(forEmptyDataSet scrollView: UIScrollView!) -> UIImage! {
-        return UIImage(named: "test")
     }
 }

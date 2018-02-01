@@ -72,6 +72,14 @@ class TasksCreateController: UIViewController, UIPickerViewDelegate, UIPickerVie
         return type_list[row]
     }
     
+    func pickerView(_ pickerView: UIPickerView, viewForRow row: Int, forComponent component: Int, reusing view: UIView?) -> UIView {
+        let pickerLabel = UILabel()
+        pickerLabel.text = type_list[row]
+        pickerLabel.textAlignment = NSTextAlignment.center
+        pickerLabel.textColor = UIColor.white
+        return pickerLabel
+    }
+    
     // Called when data is selected
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
     }

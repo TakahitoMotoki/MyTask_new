@@ -14,12 +14,9 @@ import UIKit
 import NCMB
 import SCLAlertView
 import SwiftyButton
+import DZNEmptyDataSet
 
-class FirstViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
-    // !---   Not Completed Start   ---!
-    var level: Int = 0
-    // !---   Not Completed End   ---!
-    
+class FirstViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, DZNEmptyDataSetSource, DZNEmptyDataSetDelegate {
     @IBOutlet weak var level_container: UILabel!
     @IBOutlet weak var experience_bar: UIProgressView!
     @IBOutlet weak var sort_label: UILabel!
@@ -30,6 +27,7 @@ class FirstViewController: UIViewController, UITableViewDelegate, UITableViewDat
     var sort_pointer = 0
     var cell_pointer = 0
     var cell_number: Int!
+    var level: Int = 0
     var current_user: NCMBUser = NCMBUser.current()
     let SORT_NUMBER = 6
     let SORT_GENRE = ["全て", "本", "課題", "雑用", "自習", "その他"]
@@ -46,8 +44,8 @@ class FirstViewController: UIViewController, UITableViewDelegate, UITableViewDat
         sort_button.cornerRadius = 5
         
         create_button.colors = .init(button: .green, shadow: UIColor(red: 0.0, green: 0.8, blue: 0.5, alpha: 1.0))
-        create_button.shadowHeight = 2
-        create_button.cornerRadius = 5
+        create_button.shadowHeight = 0
+        create_button.cornerRadius = 30
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -186,9 +184,6 @@ class FirstViewController: UIViewController, UITableViewDelegate, UITableViewDat
         })
     }
     
-    
-    
-    // !---   Not Completed Start   ---!
     // CRUD(Update): This func change isDone from true -> false and Update the data
     func done(indexPath: Int) {
         let today_string: String = makeTodayString()
@@ -231,9 +226,7 @@ class FirstViewController: UIViewController, UITableViewDelegate, UITableViewDat
         level = calcLevel()["level"]!
         experience_bar.progress = Float(Int(calcLevel()["diff"]!) / Int(ceil(exp(Double(calcLevel()["level"]!)))))
     }
-    // !---   Not Completed End   ---!
 
-    // !---   Not Completed Start   ---!
     // CRUD(Delete): This func delete a task from DB forever
     func delete(indexPath: Int) {
         let query = NCMBQuery(className: "Tasks")
@@ -257,7 +250,6 @@ class FirstViewController: UIViewController, UITableViewDelegate, UITableViewDat
             }
         })
     }
-    // !---   Not Completed End   ---!
     
     // This func makes formatted String from Date
     func makeTodayString() -> String {
@@ -295,10 +287,17 @@ class FirstViewController: UIViewController, UITableViewDelegate, UITableViewDat
         var diff = 0
         while exp_user > exp_total {
             exp_total = exp_total + Int(exp(Double(Double(level) / 100.0)) * 100)
-            print(Int(exp(Double(Double(level) / 100.0)) * 100))
             level = level + 1
         }
         diff = exp_total - exp_user
         return ["level": level, "diff": diff]
+    }
+    
+    func setImageWhenTableEmpty(forEmptyDataSet tableView: UITableView!) -> UIImage! {
+        return UIImage(named: "test")
+    }
+    
+    func setImageWhenTableEmpty(forEmptyDataSet scrollView: UIScrollView!) -> UIImage! {
+        return UIImage(named: "test")
     }
 }

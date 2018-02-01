@@ -86,28 +86,29 @@ class SecondViewController: UIViewController {
         let today_count: Int = countDaysFromArray(array: today_array)
         let donedate_array = convertDoneDateToArray(date: date)
         let donedate_count = countDaysFromArray(array: donedate_array)
-        let interval = today_count - donedate_count + 1
+        // let interval = today_count - donedate_count
+        let interval = today_count - donedate_count 
         return interval
     }
     // !---   Not Completed End   ---!
     
     func addEXPToMonth(interval: Int, weight: Int) {
         let tmp = Int(floor(Double(interval) / 30.0))
-        if tmp < 10 {
+        if tmp < 10 && tmp >= 0{
             months_results["m\(tmp)"] = months_results["m\(tmp)"]! + weight
         }
     }
     
     func addEXPToWeek(interval: Int, weight: Int) {
         let tmp = Int(floor(Double(interval) / 7.0))
-        if tmp < 10 {
+        if tmp < 10 && tmp >= 0 {
             weeks_results["w\(tmp)"] = weeks_results["w\(tmp)"]! + weight
         }
     }
     
     func addEXPToDay(interval: Int, weight: Int) {
         let tmp = interval
-        if tmp < 10 {
+        if tmp < 10 && tmp >= 0{
             days_results["d\(tmp)"] = days_results["d\(tmp)"]! + weight
         }
     }

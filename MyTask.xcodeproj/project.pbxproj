@@ -13,6 +13,7 @@
 		CD1DDA4420108FC300446F59 /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD1DDA4320108FC300446F59 /* SignUpViewController.swift */; };
 		CD1DDA4620108FD800446F59 /* ForgetPasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD1DDA4520108FD800446F59 /* ForgetPasswordViewController.swift */; };
 		CD1DDA482011D8E300446F59 /* SettingController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD1DDA472011D8E300446F59 /* SettingController.swift */; };
+		CD1FB3752022C1C80033390D /* OutputCellTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD1FB3742022C1C80033390D /* OutputCellTableViewCell.swift */; };
 		CD527F3120071BE70018D37C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD527F3020071BE70018D37C /* AppDelegate.swift */; };
 		CD527F3320071BE70018D37C /* FirstViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD527F3220071BE70018D37C /* FirstViewController.swift */; };
 		CD527F3520071BE70018D37C /* SecondViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD527F3420071BE70018D37C /* SecondViewController.swift */; };
@@ -32,6 +33,7 @@
 		CD1DDA4320108FC300446F59 /* SignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
 		CD1DDA4520108FD800446F59 /* ForgetPasswordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgetPasswordViewController.swift; sourceTree = "<group>"; };
 		CD1DDA472011D8E300446F59 /* SettingController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingController.swift; sourceTree = "<group>"; };
+		CD1FB3742022C1C80033390D /* OutputCellTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OutputCellTableViewCell.swift; sourceTree = "<group>"; };
 		CD527F2D20071BE70018D37C /* MyTask.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MyTask.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CD527F3020071BE70018D37C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		CD527F3220071BE70018D37C /* FirstViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstViewController.swift; sourceTree = "<group>"; };
@@ -107,6 +109,7 @@
 				CD807A1B201C6C9800EC7BD0 /* TimelineController.swift */,
 				CD527F3420071BE70018D37C /* SecondViewController.swift */,
 				CDC88FEE200B7631009ADC1E /* Input.swift */,
+				CD1FB3742022C1C80033390D /* OutputCellTableViewCell.swift */,
 				CD527F3620071BE70018D37C /* Main.storyboard */,
 				CD527F3920071BE70018D37C /* Assets.xcassets */,
 				CD527F3B20071BE70018D37C /* LaunchScreen.storyboard */,
@@ -264,6 +267,7 @@
 				CD807A1C201C6C9800EC7BD0 /* TimelineController.swift in Sources */,
 				CD1DDA422010888700446F59 /* LoginViewController.swift in Sources */,
 				CD807A1A201C6C8C00EC7BD0 /* UserController.swift in Sources */,
+				CD1FB3752022C1C80033390D /* OutputCellTableViewCell.swift in Sources */,
 				CD1DDA4420108FC300446F59 /* SignUpViewController.swift in Sources */,
 				CDC88FEF200B7631009ADC1E /* Input.swift in Sources */,
 				CD527F3520071BE70018D37C /* SecondViewController.swift in Sources */,

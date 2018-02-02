@@ -14,15 +14,18 @@ import UIKit
 import NCMB
 import SCLAlertView
 import SwiftyButton
+import CoreData
+import FontAwesomeKit
 
 class FirstViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     @IBOutlet weak var level_container: UILabel!
     @IBOutlet weak var experience_bar: UIProgressView!
     @IBOutlet weak var sort_label: UILabel!
+    @IBOutlet weak var sort_image: UIImageView!
     @IBOutlet weak var sort_button: PressableButton!
     @IBOutlet weak var tasks_table: UITableView!
     @IBOutlet weak var create_button: PressableButton!
-    var tasks: [NCMBObject]!
+    var tasks: Array<Input>!
     var sort_pointer = 0
     var cell_pointer = 0
     var cell_number: Int!
@@ -34,6 +37,11 @@ class FirstViewController: UIViewController, UITableViewDelegate, UITableViewDat
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        let sort = FAKFontAwesome.globeIcon(withSize: 24.0)
+        sort?.addAttribute(NSAttributedStringKey.foregroundColor.rawValue, value: UIColor.white)
+        let sort_font = sort?.image(with: CGSize(width: 24.0, height: 24.0))
+        sort_image.image = sort_font
+        
         level_container.text = "Level. \(calcLevel()["level"]!)"
         level = calcLevel()["level"]!
         experience_bar.progress = Float(Int(calcLevel()["diff"]!) / Int(ceil(exp(Double(calcLevel()["level"]!)))))
@@ -42,7 +50,7 @@ class FirstViewController: UIViewController, UITableViewDelegate, UITableViewDat
         sort_button.shadowHeight = 2
         sort_button.cornerRadius = 5
         
-        create_button.colors = .init(button: .green, shadow: UIColor(red: 0.0, green: 0.8, blue: 0.5, alpha: 1.0))
+        create_button.colors = .init(button: UIColor(red: 0.7, green: 0.7, blue: 0.7, alpha: 1.0), shadow: UIColor(red: 0.0, green: 0.8, blue: 0.5, alpha: 1.0))
         create_button.shadowHeight = 0
         create_button.cornerRadius = 30
     }
@@ -75,15 +83,31 @@ class FirstViewController: UIViewController, UITableViewDelegate, UITableViewDat
         
         if cell_number != nil {
             if sort_pointer != 0 {
-                for index in cell_pointer...tasks.count {
-                    if sort_pointer == tasks[index].object(forKey: "type_id") as! Int {
+                for index in cell_pointer..<tasks.count {
+                    if sort_pointer == tasks[index].type_id {
                         cell_pointer = index + 1
                         // Input title into cell
-                        cell.titleLabel.text = tasks[index].object(forKey: "title") as? String
-                        let weight = tasks[index].object(forKey: "weight") as! Int
+                        cell.titleLabel.text = tasks[index].title!
+                        let weight = tasks[index].weight
                         cell.weightLabel.text = "weight: \(weight)"
                         cell.weightImage.layer.cornerRadius = 12
                         cell.weightImage.clipsToBounds = true
+                        
+                        var type = FAKFontAwesome.diamondIcon(withSize: 24.0)
+                        if tasks[index].type_id == 1 {
+                            type = FAKFontAwesome.bookIcon(withSize: 24.0)
+                        } else if tasks[index].type_id == 2 {
+                            type = FAKFontAwesome.thumbTackIcon(withSize: 24.0)
+                        } else if tasks[index].type_id == 3 {
+                            type = FAKFontAwesome.briefcaseIcon(withSize: 24.0)
+                        } else if tasks[index].type_id == 4 {
+                            type = FAKFontAwesome.pencilIcon(withSize: 24.0)
+                        } else {
+                            type = FAKFontAwesome.tabletIcon(withSize: 24.0)
+                        }
+                        type?.addAttribute(NSAttributedStringKey.foregroundColor.rawValue, value: UIColor.white)
+                        let type_font = type?.image(with: CGSize(width: 24.0, height: 24.0))
+                        cell.typeImage.image = type_font
                         
                         // Decide background color of cell
                         if weight >= 80 {
@@ -101,13 +125,28 @@ class FirstViewController: UIViewController, UITableViewDelegate, UITableViewDat
                     }
                 }
             } else {
-            
                 // Input title into cell
-                cell.titleLabel.text = tasks[indexPath.row].object(forKey: "title") as? String
-                let weight = tasks[indexPath.row].object(forKey: "weight") as! Int
+                cell.titleLabel.text = tasks[indexPath.row].title!
+                let weight = tasks[indexPath.row].weight
                 cell.weightLabel.text = "weight: \(weight)"
                 cell.weightImage.layer.cornerRadius = 12
                 cell.weightImage.clipsToBounds = true
+                
+                var type = FAKFontAwesome.diamondIcon(withSize: 24.0)
+                if tasks[indexPath.row].type_id == 1 {
+                    type = FAKFontAwesome.bookIcon(withSize: 24.0)
+                } else if tasks[indexPath.row].type_id == 2 {
+                    type = FAKFontAwesome.thumbTackIcon(withSize: 24.0)
+                } else if tasks[indexPath.row].type_id == 3 {
+                    type = FAKFontAwesome.briefcaseIcon(withSize: 24.0)
+                } else if tasks[indexPath.row].type_id == 4 {
+                    type = FAKFontAwesome.pencilIcon(withSize: 24.0)
+                } else {
+                    type = FAKFontAwesome.tabletIcon(withSize: 24.0)
+                }
+                type?.addAttribute(NSAttributedStringKey.foregroundColor.rawValue, value: UIColor.white)
+                let type_font = type?.image(with: CGSize(width: 24.0, height: 24.0))
+                cell.typeImage.image = type_font
                 
                 // Decide background color of cell
                 if weight >= 80 {
@@ -135,12 +174,11 @@ class FirstViewController: UIViewController, UITableViewDelegate, UITableViewDat
         alertView.addButton("削除") {
             self.delete(indexPath: indexPath.row)
         }
-        alertView.showSuccess(tasks[Int(indexPath.row)].object(forKey: "title") as! String, subTitle: "が選択されました", closeButtonTitle: "閉じる")
+        alertView.showSuccess(tasks[indexPath.row].title!, subTitle: "が選択されました", closeButtonTitle: "閉じる")
         tasks_table.reloadData()
     }
     // !---   TableView Required Method End   ---!
     
-    // !---   Not Completed Start   ---!
     // Sort the tasks by genre
     @IBAction func sort_by_genre() {
         sort_pointer = sort_pointer + 1
@@ -148,97 +186,101 @@ class FirstViewController: UIViewController, UITableViewDelegate, UITableViewDat
             sort_pointer = 0
         }
         sort_label.text = SORT_GENRE[sort_pointer]
+        
+        var sort = FAKFontAwesome.diamondIcon(withSize: 24.0)
+        if sort_pointer == 0 {
+            sort = FAKFontAwesome.globeIcon(withSize: 24.0)
+        } else if sort_pointer == 1 {
+            sort = FAKFontAwesome.bookIcon(withSize: 24.0)
+        } else if sort_pointer == 2 {
+            sort = FAKFontAwesome.thumbTackIcon(withSize: 24.0)
+        } else if sort_pointer == 3 {
+            sort = FAKFontAwesome.briefcaseIcon(withSize: 24.0)
+        } else if sort_pointer == 4 {
+            sort = FAKFontAwesome.pencilIcon(withSize: 24.0)
+        } else {
+            sort = FAKFontAwesome.tabletIcon(withSize: 24.0)
+        }
+        sort?.addAttribute(NSAttributedStringKey.foregroundColor.rawValue, value: UIColor.white)
+        let sort_font = sort?.image(with: CGSize(width: 24.0, height: 24.0))
+        sort_image.image = sort_font
+        
         cell_pointer = 0
-        tasks_table.reloadData()
-    }
-    // !---   Not Completed End   ---!
-    
-    func setTasks(results: [NCMBObject]!) {
-        tasks = results
-        cell_number = tasks.count
         tasks_table.reloadData()
     }
     
     func queryExecution() {
-        let query = NCMBQuery(className: "Tasks")
-        query?.whereKey("isDone", equalTo: true)
-        query?.whereKey("user_id", equalTo: NCMBUser.current().objectId)
-        query?.findObjectsInBackground({ (results, error) in
-            if (error != nil) {
-                // 検索が失敗した時の処理
-                
-            } else {
-                // 検索が成功した時の処理
-                self.setTasks(results: results as! [NCMBObject])
-            }
-        })
+        let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+        do {
+            // CoreDataからデータをfetchしてtasksに格納
+            let fetchRequest: NSFetchRequest<Input> = Input.fetchRequest()
+            tasks = try context.fetch(fetchRequest)
+        } catch {
+            print("Core Data Failed")
+        }
+        cell_number = tasks.count
+        tasks_table.reloadData()
     }
-    
+        
     // CRUD(Update): This func change isDone from true -> false and Update the data
     func done(indexPath: Int) {
         let today_string: String = makeTodayString()
-        let query = NCMBQuery(className: "Tasks")
-        query?.whereKey("objectId", equalTo: tasks[indexPath].objectId)
-        query?.findObjectsInBackground({ (result, error) in
-            if error != nil {
-                // Failed
-            } else {
-                //　Success
-                let results = result as! [NCMBObject]
-                let task = results.first
-                let exp = self.current_user.object(forKey: "exp") as! Int
-                let task_weight = task?.object(forKey: "weight") as! Int
-                task?.setObject(today_string, forKey: "doneDate")
-                task?.setObject(false, forKey: "isDone")
-                task?.saveInBackground({ (error) in
-                    if error != nil {
-                        // Failed
-                    } else {
-                        // Success
-                        self.queryExecution()
-                        self.tasks_table.reloadData()
-                    }
-                })
-                let tmp = Double(task_weight) * (100.0 + Double(self.level)) / 100.0
-                self.current_user.setObject(exp + Int(tmp), forKey: "exp")
-                self.current_user.saveInBackground({ (error) in
-                    if error != nil {
-                        // Failed
-                    } else {
-                        // Success
-                        self.queryExecution()
-                        self.tasks_table.reloadData()
-                    }
-                })
-            }
-        })
-        level_container.text = "Level. \(calcLevel()["level"]!)"
-        level = calcLevel()["level"]!
-        experience_bar.progress = Float(Int(calcLevel()["diff"]!) / Int(ceil(exp(Double(calcLevel()["level"]!)))))
-    }
-
-    // CRUD(Delete): This func delete a task from DB forever
-    func delete(indexPath: Int) {
-        let query = NCMBQuery(className: "Tasks")
-        query?.whereKey("objectId", equalTo: tasks[indexPath].objectId)
-        query?.findObjectsInBackground({ (result, error) in
+        let object = NCMBObject(className: "Tasks")
+        object?.setObject(tasks[indexPath].title, forKey: "title")
+        object?.setObject(tasks[indexPath].weight, forKey: "weight")
+        object?.setObject(tasks[indexPath].type_id, forKey: "type_id")
+        object?.setObject(false, forKey: "isDone")
+        object?.setObject(NCMBUser.current().objectId, forKey: "user_id")
+        object?.setObject(today_string, forKey: "doneDate")
+        object?.saveInBackground({ (error) in
             if error != nil {
                 // Failed
             } else {
                 // Success
-                let results = result as! [NCMBObject]
-                let task = results.first
-                task?.deleteInBackground({ (error) in
-                    if error != nil {
-                        // Failed
-                    } else {
-                        // Success
-                        self.queryExecution()
-                        self.tasks_table.reloadData()
-                    }
-                })
             }
         })
+        let exp = self.current_user.object(forKey: "exp") as! Int
+        let task_weight = tasks[indexPath].weight
+        let tmp = Double(task_weight) * (100.0 + Double(self.level)) / 100.0
+        self.current_user.setObject(exp + Int(tmp), forKey: "exp")
+        self.current_user.saveInBackground({ (error) in
+            if error != nil {
+                // Failed
+            } else {
+                // Success
+                self.queryExecution()
+                self.tasks_table.reloadData()
+            }
+        })
+        
+        let appDelegate: AppDelegate = UIApplication.shared.delegate as! AppDelegate
+        let viewContext = appDelegate.persistentContainer.viewContext
+        let deleteObject = tasks[indexPath] as Input
+        viewContext.delete(deleteObject)
+        do{
+            try viewContext.save()
+        }catch{
+            print(error)
+        }
+        
+        level_container.text = "Level. \(calcLevel()["level"]!)"
+        level = calcLevel()["level"]!
+        //experience_bar.progress = Float(Int(calcLevel()["diff"]!) / Int(ceil(exp(Double(calcLevel()["level"]!)))))
+    }
+
+    // CRUD(Delete): This func delete a task from DB forever
+    func delete(indexPath: Int) {
+        let appDelegate: AppDelegate = UIApplication.shared.delegate as! AppDelegate
+        let viewContext = appDelegate.persistentContainer.viewContext
+        let deleteObject = tasks[indexPath] as Input
+        viewContext.delete(deleteObject)
+        do{
+            try viewContext.save()
+        }catch{
+            print(error)
+        }
+        queryExecution()
+        tasks_table.reloadData()
     }
     
     // This func makes formatted String from Date
@@ -263,7 +305,7 @@ class FirstViewController: UIViewController, UITableViewDelegate, UITableViewDat
     private func sortCount() -> Int {
         var count = 0
         for index in 0...tasks.count - 1 {
-            if tasks[index].object(forKey: "type_id") as! Int == sort_pointer {
+            if tasks[index].type_id == sort_pointer {
                 count = count + 1
             }
         }

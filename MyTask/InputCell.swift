@@ -12,6 +12,7 @@ class InputCell: UITableViewCell {
     @IBOutlet weak var weightImage: UIImageView!
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var weightLabel: UILabel!
+    @IBOutlet weak var typeImage: UIImageView!
 
     override func awakeFromNib() {
         super.awakeFromNib()

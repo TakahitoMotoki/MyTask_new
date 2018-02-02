@@ -7,8 +7,6 @@
 //
 
 /* Todo
- 1. user_idの取得
- 2. user_idの保存
 */
 
 import Foundation
@@ -16,6 +14,7 @@ import UIKit
 import NCMB
 import FontAwesomeKit
 import SwiftyButton
+import CoreData
 
 class TasksCreateController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource, UITextFieldDelegate {
     @IBOutlet weak var title_textfield: UITextField!
@@ -33,10 +32,10 @@ class TasksCreateController: UIViewController, UIPickerViewDelegate, UIPickerVie
         super.viewDidLoad()
         weight_textfield.text = "50"
         
-        create_button.colors = .init(button: UIColor(red: 0, green: 0, blue: 1.0, alpha: 0.52), shadow: UIColor(red: 0, green: 0, blue: 1.0, alpha: 1.0))
+        create_button.colors = .init(button: UIColor(red: 0, green: 0, blue: 0.6, alpha: 0.52), shadow: UIColor(red: 0, green: 0, blue: 1.0, alpha: 1.0))
         create_button.shadowHeight = 2
         create_button.cornerRadius = 5
-        cancel_button.colors = .init(button: UIColor(red: 1.0, green: 0, blue: 0, alpha: 0.52), shadow: UIColor(red: 1.0, green: 0, blue: 0, alpha: 1.0))
+        cancel_button.colors = .init(button: UIColor(red: 0.6, green: 0, blue: 0, alpha: 0.52), shadow: UIColor(red: 1.0, green: 0, blue: 0, alpha: 1.0))
         cancel_button.shadowHeight = 2
         cancel_button.cornerRadius = 5
         
@@ -90,25 +89,25 @@ class TasksCreateController: UIViewController, UIPickerViewDelegate, UIPickerVie
         weight_textfield.text = "\(Int(weight_bar.value))"
     }
     
-    // !---   Not Completed Start   ---!
     @IBAction func create() {
-        let object = NCMBObject(className: "Tasks")
-        object?.setObject(title_textfield.text, forKey: "title")
-        object?.setObject(title_textfield.text, forKey: "title")
-        object?.setObject(Int(weight_bar.value), forKey: "weight")
-        object?.setObject(convertType(type_str: self.pickerView(type_picker, titleForRow: type_picker.selectedRow(inComponent: 0), forComponent: 0)!), forKey: "type_id")
-        object?.setObject(true, forKey: "isDone")
-        object?.setObject(NCMBUser.current().objectId, forKey: "user_id")
-        object?.saveInBackground( { (error) in
-            if error != nil {
-                // エラーが発生したときのコード
-            } else {
-                //成功したときのコード
-                self.dismiss()
-            }
-        })
+        // context(データベースを扱うのに必要)を定義。
+        let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+
+        // taskにTask(データベースのエンティティです)型オブジェクトを代入します。
+        let input = Input(context: context)
+        
+        // 先ほど定義したInput型データのプロパティに入力、選択したデータを代入します。
+        input.title = title_textfield.text
+        input.user_id = NCMBUser.current().objectId
+        input.type_id = Int16(convertType(type_str: self.pickerView(type_picker, titleForRow: type_picker.selectedRow(inComponent: 0), forComponent: 0)!))
+        input.weight = Int16(weight_bar.value)
+        input.input_id = NSUUID().uuidString
+        
+        // 上で作成したデータをデータベースに保存します。
+        (UIApplication.shared.delegate as! AppDelegate).saveContext()
+        
+        dismiss(animated: true, completion: nil)
     }
-    // !---   Not Completed End   ---!
     
     @IBAction func dismiss() {
         self.dismiss(animated: true, completion: nil)
@@ -136,3 +135,23 @@ class TasksCreateController: UIViewController, UIPickerViewDelegate, UIPickerVie
         return true
     }
 }
+
+/*
+ createの中の、NCMBを用いて新しいデータを作るコード => CoreDataを用いて、iOS上にInputは保存
+ 
+ let object = NCMBObject(className: "Tasks")
+ object?.setObject(title_textfield.text, forKey: "title")
+ object?.setObject(title_textfield.text, forKey: "title")
+ object?.setObject(Int(weight_bar.value), forKey: "weight")
+ object?.setObject(convertType(type_str: self.pickerView(type_picker, titleForRow: type_picker.selectedRow(inComponent: 0), forComponent: 0)!), forKey: "type_id")
+ object?.setObject(true, forKey: "isDone")
+ object?.setObject(NCMBUser.current().objectId, forKey: "user_id")
+ object?.saveInBackground( { (error) in
+ if error != nil {
+ // エラーが発生したときのコード
+ } else {
+ //成功したときのコード
+ self.dismiss()
+ }
+ })
+ */

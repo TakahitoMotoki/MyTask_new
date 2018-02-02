@@ -14,6 +14,7 @@
 		CD1DDA4620108FD800446F59 /* ForgetPasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD1DDA4520108FD800446F59 /* ForgetPasswordViewController.swift */; };
 		CD1DDA482011D8E300446F59 /* SettingController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD1DDA472011D8E300446F59 /* SettingController.swift */; };
 		CD1FB377202343D20033390D /* InputCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD1FB376202343D20033390D /* InputCell.swift */; };
+		CD1FB37A202403A00033390D /* InputModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = CD1FB378202403A00033390D /* InputModel.xcdatamodeld */; };
 		CD527F3120071BE70018D37C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD527F3020071BE70018D37C /* AppDelegate.swift */; };
 		CD527F3320071BE70018D37C /* FirstViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD527F3220071BE70018D37C /* FirstViewController.swift */; };
 		CD527F3520071BE70018D37C /* SecondViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD527F3420071BE70018D37C /* SecondViewController.swift */; };
@@ -31,6 +32,7 @@
 		CD1DDA4520108FD800446F59 /* ForgetPasswordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgetPasswordViewController.swift; sourceTree = "<group>"; };
 		CD1DDA472011D8E300446F59 /* SettingController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingController.swift; sourceTree = "<group>"; };
 		CD1FB376202343D20033390D /* InputCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputCell.swift; sourceTree = "<group>"; };
+		CD1FB379202403A00033390D /* InputModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = InputModel.xcdatamodel; sourceTree = "<group>"; };
 		CD527F2D20071BE70018D37C /* MyTask.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MyTask.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CD527F3020071BE70018D37C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		CD527F3220071BE70018D37C /* FirstViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstViewController.swift; sourceTree = "<group>"; };
@@ -101,6 +103,7 @@
 				CD1DDA4520108FD800446F59 /* ForgetPasswordViewController.swift */,
 				CD527F3420071BE70018D37C /* SecondViewController.swift */,
 				CD1FB376202343D20033390D /* InputCell.swift */,
+				CD1FB378202403A00033390D /* InputModel.xcdatamodeld */,
 				CD527F3620071BE70018D37C /* Main.storyboard */,
 				CD527F3920071BE70018D37C /* Assets.xcassets */,
 				CD527F3B20071BE70018D37C /* LaunchScreen.storyboard */,
@@ -258,6 +261,7 @@
 				CD1DDA422010888700446F59 /* LoginViewController.swift in Sources */,
 				CD1DDA4420108FC300446F59 /* SignUpViewController.swift in Sources */,
 				CD527F3520071BE70018D37C /* SecondViewController.swift in Sources */,
+				CD1FB37A202403A00033390D /* InputModel.xcdatamodeld in Sources */,
 				CD1FB377202343D20033390D /* InputCell.swift in Sources */,
 				CD527F3120071BE70018D37C /* AppDelegate.swift in Sources */,
 				CD1422FD200CF00E00EE1DBC /* TasksCreateController.swift in Sources */,
@@ -449,6 +453,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		CD1FB378202403A00033390D /* InputModel.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				CD1FB379202403A00033390D /* InputModel.xcdatamodel */,
+			);
+			currentVersion = CD1FB379202403A00033390D /* InputModel.xcdatamodel */;
+			path = InputModel.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = CD527F2520071BE70018D37C /* Project object */;
 }

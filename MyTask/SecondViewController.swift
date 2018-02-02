@@ -24,14 +24,27 @@ class SecondViewController: UIViewController {
     @IBOutlet weak var level_container: UILabel!
     @IBOutlet weak var experience_bar: UIProgressView!
     @IBOutlet weak var graph_view: UIView!
+    @IBOutlet weak var horizontalBarChartView: HorizontalBarChartView!
     var days_results: Dictionary<String, Int> = ["d0": 0, "d1": 0, "d2": 0, "d3": 0, "d4": 0, "d5": 0, "d6": 0, "d7": 0, "d8": 0, "d9": 0]
     var weeks_results: Dictionary<String, Int> = ["w0": 0, "w1": 0, "w2": 0, "w3": 0, "w4": 0, "w5": 0, "w6": 0, "w7": 0, "w8": 0, "w9": 0]
     var months_results: Dictionary<String, Int> = ["m0": 0, "m1": 0, "m2": 0, "m3": 0, "m4": 0, "m5": 0, "m6": 0, "m7": 0, "m8": 0, "m9": 0]
+    let bar_months = ["今月", "1ヶ月前", "2ヶ月前", "3ヶ月前", "4ヶ月前", "5ヶ月前", "6ヶ月前", "7ヶ月前", "8ヶ月前", "9ヶ月前"]
+    let bar_weeks = ["今週", "1週間前", "2週間前", "3週間前", "4週間前", "5週間前", "6週間前", "7週間前", "8週間前", "9週間前"]
+    let bar_days = ["今日", "1日前", "2日前", "3日前", "4日前", "5日前", "6日前", "7日前", "8日前", "9日前"]
     
     override func viewDidLoad() {
         super.viewDidLoad()
         level_container.text = "Level. \(level)"
         experience_bar.progress = Float(experience) / 20000.0
+        
+        horizontalBarChartView.pinchZoomEnabled = false
+        horizontalBarChartView.drawBarShadowEnabled = false
+        horizontalBarChartView.drawBordersEnabled = true
+        horizontalBarChartView.scaleXEnabled = false
+        horizontalBarChartView.scaleYEnabled = false
+        
+        drawCharts()
+        //setChart(bar_days, values: [100, 40, 60, 40, 30, 70, 120, 80, 30, 10])
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -180,10 +193,6 @@ class SecondViewController: UIViewController {
     
     // This func draws Charts
     func drawCharts() {
-        var rect = graph_view.bounds
-        rect.origin.y += 0
-        rect.size.height += 0
-        let chartView = LineChartView(frame: rect)
         let entries = [
             BarChartDataEntry(x: 0, y: Double(days_results["d0"]!)),
             BarChartDataEntry(x: 1, y: Double(days_results["d1"]!)),
@@ -196,9 +205,34 @@ class SecondViewController: UIViewController {
             BarChartDataEntry(x: 8, y: Double(days_results["d8"]!)),
             BarChartDataEntry(x: 9, y: Double(days_results["d9"]!))
         ]
-        let set = LineChartDataSet(values: entries, label: "Data")
-        chartView.data = LineChartData(dataSet: set)
-        graph_view.addSubview(chartView)
+        let set = BarChartDataSet(values: entries, label: "Data")
+        //let set = LineChartDataSet(values: entries, label: "Data")
+        horizontalBarChartView.data = BarChartData(dataSet: set)
+        //horizontalBarChartView.data = LineChartData(dataSet: set)
+        //graph_view.addSubview(horizontalBarChartView)
     }
+    
+    /*
+    func setChart(dataPoints: [String], values: [Double]) {
+        var dataEntries: [BarChartDataEntry] = []
+        
+        for i in 0..<dataPoints.count {
+            var dataEntries: [BarChartDataEntry] = []
+            
+            for i in 0..<dataPoints.count {
+                let dataEntry = BarChartDataEntry(x: Double(i), y: Double(values[i]))
+                dataEntries.append(dataEntry)
+            }
+            
+            let chartDataSet = BarChartDataSet(values: dataEntries, label: "降水量")
+            let chartData = BarChartData(value: bar_months, dataSet: chartDataSet)
+            horizontalBarChartView.data = chartData
+        }
+        
+        let chartDataSet = BarChartDataSet(values: dataEntries, label: "降水量")
+        let chartData = BarChartData(value: bar_months, dataSet: chartDataSet)
+        horizontalBarChartView.data = chartData
+    }
+ */
 }
 

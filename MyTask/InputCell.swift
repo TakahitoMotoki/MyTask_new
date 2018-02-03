@@ -13,6 +13,7 @@ class InputCell: UITableViewCell {
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var weightLabel: UILabel!
     @IBOutlet weak var typeImage: UIImageView!
+    @IBOutlet weak var dateLabel: UILabel!
 
     override func awakeFromNib() {
         super.awakeFromNib()

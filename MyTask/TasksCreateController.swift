@@ -24,9 +24,13 @@ class TasksCreateController: UIViewController, UIPickerViewDelegate, UIPickerVie
     @IBOutlet weak var title_font: UIImageView!
     @IBOutlet weak var weight_font: UIImageView!
     @IBOutlet weak var tag_font: UIImageView!
+    @IBOutlet weak var date_font: UIImageView!
+    @IBOutlet weak var validate_date: UILabel!
+    @IBOutlet weak var validate_date_button: UISwitch!
+    @IBOutlet weak var date_picker: UIDatePicker!
     @IBOutlet weak var create_button: PressableButton!
     @IBOutlet weak var cancel_button: PressableButton!
-    var type_list = ["本", "課題", "雑用", "自習", "その他"]
+    var type_list = ["仕事・バイト・インターン", "課題・宿題", "雑用", "自習", "その他", "したいこと"]
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -41,15 +45,26 @@ class TasksCreateController: UIViewController, UIPickerViewDelegate, UIPickerVie
         
         // Font Image
         let title = FAKFontAwesome.diamondIcon(withSize: 30)
+        title?.addAttribute(NSAttributedStringKey.foregroundColor.rawValue, value: UIColor.white)
         let title_image = title?.image(with: CGSize(width: 30.0, height: 30.0))
         let tag = FAKFontAwesome.hashtagIcon(withSize: 30)
+        tag?.addAttribute(NSAttributedStringKey.foregroundColor.rawValue, value: UIColor.white)
         let tag_image = tag?.image(with: CGSize(width: 30.0, height: 30.0))
+        let date = FAKFontAwesome.calendarIcon(withSize: 30.0)
+        date?.addAttribute(NSAttributedStringKey.foregroundColor.rawValue, value: UIColor.white)
+        let date_image = date?.image(with: CGSize(width: 30.0, height: 30.0))
         
         title_font.image = title_image
         tag_font.image = tag_image
+        date_font.image = date_image
         
         // TextFieldのDelegate設定
         title_textfield.delegate = self
+
+        // DatePickerの設定
+        date_picker.setValue(false, forKey: "highlightsToday")
+        date_picker.minimumDate = NSDate() as Date
+
     }
     
     override func didReceiveMemoryWarning() {
@@ -89,6 +104,15 @@ class TasksCreateController: UIViewController, UIPickerViewDelegate, UIPickerVie
         weight_textfield.text = "\(Int(weight_bar.value))"
     }
     
+    @IBAction func getUISwitchValue(_ sender: UISwitch) {
+        validate_date.text = sender.isOn ? "する":"しない"
+        if sender.isOn {
+            date_picker.setValue(UIColor.white, forKey: "textColor")
+        } else {
+            date_picker.setValue(UIColor.black, forKey: "textColor")
+        }
+    }
+    
     @IBAction func create() {
         // context(データベースを扱うのに必要)を定義。
         let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
@@ -102,7 +126,15 @@ class TasksCreateController: UIViewController, UIPickerViewDelegate, UIPickerVie
         input.type_id = Int16(convertType(type_str: self.pickerView(type_picker, titleForRow: type_picker.selectedRow(inComponent: 0), forComponent: 0)!))
         input.weight = Int16(weight_bar.value)
         input.input_id = NSUUID().uuidString
-        
+        if validate_date_button.isOn {
+            input.date = makeDateStringFromDatePicker()
+            input.days = Int32(countDaysFromArray(array: convertDateStringToArray(date: makeDateStringFromDatePicker())))
+            print(Int32(countDaysFromArray(array: convertDateStringToArray(date: makeDateStringFromDatePicker()))))
+        } else {
+            input.date = ""
+            input.days = 10000000
+        }
+
         // 上で作成したデータをデータベースに保存します。
         (UIApplication.shared.delegate as! AppDelegate).saveContext()
         
@@ -115,16 +147,18 @@ class TasksCreateController: UIViewController, UIPickerViewDelegate, UIPickerVie
     
     // Convert Type(String) -> Type(Int)
     func convertType(type_str: String) -> Int {
-        if(type_str == "本") {
+        if(type_str == "仕事・バイト・インターン") {
             return 1
-        } else if(type_str == "課題") {
+        } else if(type_str == "課題・宿題") {
             return 2
         } else if(type_str == "雑用") {
             return 3
         } else if (type_str == "自習") {
             return 4
-        } else {
+        } else if (type_str == "その他") {
             return 5
+        } else {
+            return 6
         }
     }
     
@@ -134,24 +168,75 @@ class TasksCreateController: UIViewController, UIPickerViewDelegate, UIPickerVie
         textField.resignFirstResponder()
         return true
     }
+    
+    private func makeDateStringFromDatePicker() -> String{
+        let date = date_picker.date
+        let calendar = Calendar(identifier: .gregorian)
+        var day_string = ""
+        if calendar.component(.day, from: date) < 10 {
+            day_string = "0\(calendar.component(.day, from : date))"
+        } else {
+            day_string = "\(calendar.component(.day, from : date))"
+        }
+        var month_string = ""
+        if calendar.component(.month, from: date) < 10 {
+            month_string = "0\(calendar.component(.month, from: date))"
+        } else {
+            month_string = "\(calendar.component(.month, from: date))"
+        }
+        let year_string = "\(calendar.component(.year, from: date))"
+        return year_string + "-" + month_string + "-" + day_string
+    }
+    
+    private func countDaysFromArray(array: Dictionary<String, Int>) -> Int {
+        var count: Int = 0
+        let MONTH_DAYS = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]
+        let MONTH_DAYS_LEAP = [31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]
+        let YEAR_DAYS = 365
+        let YEAR_DAYS_LEAP = 366
+        
+        // Count Days
+        count = array["d"]!
+        
+        //Count Months -> Days
+        if array["y"]! % 4 != 0 {
+            for i in 0..<(array["m"]! - 1) {
+                count = count + MONTH_DAYS[i]
+            }
+        } else {
+            if array["y"]! % 100 == 0 {
+                for i in 0..<(array["m"]! - 1) {
+                    count = count + MONTH_DAYS[i]
+                }
+            } else {
+                for i in 0..<(array["m"]! - 1) {
+                    count = count + MONTH_DAYS_LEAP[i]
+                }
+            }
+        }
+        
+        // Count Years -> Days
+        for i in 1...(array["y"]! - 1) {
+            if i % 4 != 0 {
+                count = count + YEAR_DAYS
+            } else {
+                if i % 100 == 0 {
+                    count = count + YEAR_DAYS
+                } else {
+                    count = count + YEAR_DAYS_LEAP
+                }
+            }
+        }
+        return count
+    }
+    
+    private func convertDateStringToArray(date: String) -> Dictionary<String, Int> {
+        var donedate_array: Dictionary<String, Int> = ["y": 0, "m": 0, "d": 0]
+        let sprit = date.components(separatedBy: "-")
+        donedate_array["y"] = Int(sprit[0])
+        donedate_array["m"] = Int(sprit[1])
+        donedate_array["d"] = Int(sprit[2])
+        return donedate_array
+    }
 }
 
-/*
- createの中の、NCMBを用いて新しいデータを作るコード => CoreDataを用いて、iOS上にInputは保存
- 
- let object = NCMBObject(className: "Tasks")
- object?.setObject(title_textfield.text, forKey: "title")
- object?.setObject(title_textfield.text, forKey: "title")
- object?.setObject(Int(weight_bar.value), forKey: "weight")
- object?.setObject(convertType(type_str: self.pickerView(type_picker, titleForRow: type_picker.selectedRow(inComponent: 0), forComponent: 0)!), forKey: "type_id")
- object?.setObject(true, forKey: "isDone")
- object?.setObject(NCMBUser.current().objectId, forKey: "user_id")
- object?.saveInBackground( { (error) in
- if error != nil {
- // エラーが発生したときのコード
- } else {
- //成功したときのコード
- self.dismiss()
- }
- })
- */

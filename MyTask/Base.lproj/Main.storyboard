@@ -281,6 +281,10 @@
                                     <action selector="getUISwitchValue:" destination="RrF-6T-2CJ" eventType="valueChanged" id="6h7-vt-uPZ"/>
                                 </connections>
                             </switch>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="zpf-B1-8jH">
+                                <rect key="frame" x="21" y="368" width="30" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="期限を設定：" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="90O-8L-c1S">
                                 <rect key="frame" x="68" y="360" width="108" height="44"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -306,10 +310,13 @@
                                 </date>
                                 <locale key="locale" localeIdentifier="ja_JP"/>
                             </datePicker>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="zpf-B1-8jH">
-                                <rect key="frame" x="21" y="368" width="30" height="30"/>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iLD-q9-WLW">
+                                <rect key="frame" x="335" y="115" width="24" height="24"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            </imageView>
+                                <connections>
+                                    <action selector="showHelp" destination="RrF-6T-2CJ" eventType="touchUpInside" id="kcX-iA-WTQ"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="0.15505347429999999" green="0.1780480894" blue="0.160048619" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <viewLayoutGuide key="safeArea" id="9iH-Aa-tgo"/>
@@ -320,6 +327,7 @@
                         <outlet property="create_button" destination="2pW-PD-CeH" id="yw4-A2-U6V"/>
                         <outlet property="date_font" destination="zpf-B1-8jH" id="QxK-sn-kMZ"/>
                         <outlet property="date_picker" destination="hkU-Xw-ixG" id="66l-Tt-1Ht"/>
+                        <outlet property="help_button" destination="iLD-q9-WLW" id="iDh-hM-SsO"/>
                         <outlet property="tag_font" destination="WU1-5j-cmg" id="KCN-2O-s9P"/>
                         <outlet property="title_font" destination="8yH-MN-hHq" id="AvK-3L-wI8"/>
                         <outlet property="title_textfield" destination="v9E-PO-qoo" id="aK0-Lq-zlh"/>
@@ -329,11 +337,61 @@
                         <outlet property="weight_bar" destination="rj0-d4-3lP" id="ZcE-Dq-8T4"/>
                         <outlet property="weight_font" destination="Meo-4b-Cdf" id="YyD-GE-sdD"/>
                         <outlet property="weight_textfield" destination="AKW-X2-kAB" id="spl-uv-wnG"/>
+                        <segue destination="SIj-L1-FVv" kind="presentation" identifier="goToHelp" modalTransitionStyle="crossDissolve" id="dnw-Y9-JBI"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="wEn-xX-q53" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1628" y="-323.38830584707648"/>
+        </scene>
+        <!--Help View Controller-->
+        <scene sceneID="F27-sG-l6e">
+            <objects>
+                <viewController modalPresentationStyle="overCurrentContext" id="SIj-L1-FVv" customClass="HelpViewController" customModule="MyTask" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" tag="1" contentMode="scaleToFill" id="QeJ-AU-OJI">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view tag="2" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="XRO-4f-WOA">
+                                <rect key="frame" x="47" y="20" width="281" height="627"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <subviews>
+                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" textAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="86a-LI-0CO">
+                                        <rect key="frame" x="8" y="97" width="265" height="439"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <string key="text">★仕事・バイト・インターン 報告書 ➡︎ 80  ★課題・宿題 プリント ➡︎ 10 レポート ➡︎ 80  ★雑用 お店の予約 ➡︎ 10 DVD返却 ➡︎ 5  ★自習 参考書1章 ➡︎ 20 本1冊 ➡︎ 100  ★したいこと ブログを書く ➡︎ 30 ピアノの練習 ➡︎ 50 旅行計画 ➡︎ 90</string>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                    </textView>
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="McN-W2-XSL">
+                                        <rect key="frame" x="90" y="575" width="100" height="44"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <state key="normal" title="閉じる"/>
+                                        <connections>
+                                            <action selector="didTapCloseWithSender:" destination="SIj-L1-FVv" eventType="touchUpInside" id="LR5-Xo-Ax7"/>
+                                        </connections>
+                                    </button>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="経験値のつけかた(参考)" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qbK-xr-Ucy">
+                                        <rect key="frame" x="4" y="28" width="273" height="44"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" red="0.93725490570000003" green="0.93725490570000003" blue="0.95686274770000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            </view>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="qXS-ih-L0R"/>
+                    </view>
+                    <connections>
+                        <outlet property="popView" destination="XRO-4f-WOA" id="6Cf-yu-tD3"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="VIO-fb-0fd" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2532" y="-323.38830584707648"/>
         </scene>
         <!--Charts-->
         <scene sceneID="wg7-f3-ORb">

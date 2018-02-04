@@ -23,6 +23,7 @@ class TasksCreateController: UIViewController, UIPickerViewDelegate, UIPickerVie
     @IBOutlet weak var type_picker: UIPickerView!
     @IBOutlet weak var title_font: UIImageView!
     @IBOutlet weak var weight_font: UIImageView!
+    @IBOutlet weak var help_button: UIButton!
     @IBOutlet weak var tag_font: UIImageView!
     @IBOutlet weak var date_font: UIImageView!
     @IBOutlet weak var validate_date: UILabel!
@@ -42,6 +43,12 @@ class TasksCreateController: UIViewController, UIPickerViewDelegate, UIPickerVie
         cancel_button.colors = .init(button: UIColor(red: 0.6, green: 0, blue: 0, alpha: 0.52), shadow: UIColor(red: 1.0, green: 0, blue: 0, alpha: 1.0))
         cancel_button.shadowHeight = 2
         cancel_button.cornerRadius = 5
+        
+        // help_button
+        let help = FAKFontAwesome.questionCircleIcon(withSize: 24.0)
+        help?.addAttribute(NSAttributedStringKey.foregroundColor.rawValue, value: UIColor.white)
+        let help_image = help?.image(with: CGSize(width: 24.0, height: 24.0))
+        help_button.setBackgroundImage(help_image, for: .normal)
         
         // Font Image
         let title = FAKFontAwesome.diamondIcon(withSize: 30)
@@ -102,6 +109,10 @@ class TasksCreateController: UIViewController, UIPickerViewDelegate, UIPickerVie
     // Set Slider value to weight_textfield
     @IBAction func sliderAction(_ sender: Any) {
         weight_textfield.text = "\(Int(weight_bar.value))"
+    }
+    
+    @IBAction func showHelp() {
+        self.performSegue(withIdentifier: "goToHelp", sender: nil)
     }
     
     @IBAction func getUISwitchValue(_ sender: UISwitch) {

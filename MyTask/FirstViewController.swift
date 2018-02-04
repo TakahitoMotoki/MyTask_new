@@ -25,11 +25,11 @@ class FirstViewController: UIViewController, UITableViewDelegate, UITableViewDat
     @IBOutlet weak var sort_label: UILabel!
     @IBOutlet weak var sort_image: UIImageView!
     @IBOutlet weak var sort_button: PressableButton!
+    @IBOutlet weak var number_label: UILabel!
     @IBOutlet weak var tasks_table: UITableView!
     @IBOutlet weak var create_button: PressableButton!
     var tasks: Array<Input>!
     var tasks_date: Array<Input>!
-    var tasks_normal: Array<Input>!
     var sort_pointer = 0
     var cell_pointer = 0
     var cell_number: Int!
@@ -61,8 +61,10 @@ class FirstViewController: UIViewController, UITableViewDelegate, UITableViewDat
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(true)
+        cell_pointer = 0
         sortTasksByDate()
         queryExecution()
+        number_label.text = "総数: \(tasks.count)"
     }
 
     override func didReceiveMemoryWarning() {
@@ -91,7 +93,6 @@ class FirstViewController: UIViewController, UITableViewDelegate, UITableViewDat
                 while cell_pointer < tasks.count {
                     if sort_pointer == tasks[cell_pointer].type_id {
                         let cell = makeCell(index: cell_pointer)
-                        print(cell_pointer)
                         cell_pointer = cell_pointer + 1
                         return cell
                     }
@@ -164,12 +165,12 @@ class FirstViewController: UIViewController, UITableViewDelegate, UITableViewDat
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let alertView = SCLAlertView()
         alertView.addButton("完了") {
-            self.done(indexPath: indexPath.row)
+            self.done(indexPath: self.modifyIndexPath(indexPath: indexPath.row))
         }
         alertView.addButton("削除") {
-            self.delete(indexPath: indexPath.row)
+            self.delete(indexPath: self.modifyIndexPath(indexPath: indexPath.row))
         }
-        alertView.showSuccess(tasks[indexPath.row].title!, subTitle: "が選択されました", closeButtonTitle: "閉じる")
+        alertView.showSuccess(tasks[modifyIndexPath(indexPath: indexPath.row)].title!, subTitle: "が選択されました", closeButtonTitle: "閉じる")
         tasks_table.reloadData()
     }
     // !---   TableView Required Method End   ---!
@@ -207,14 +208,11 @@ class FirstViewController: UIViewController, UITableViewDelegate, UITableViewDat
         }
         let sort_font = sort?.image(with: CGSize(width: 24.0, height: 24.0))
         sort_image.image = sort_font
+        
         cell_pointer = 0
-        print("+=+=+=+")
-        print(cell_pointer)
-        print("+=+=+=+")
         
         queryExecution()
         sortTasksByDate()
-        print(tasks)
         tasks_table.reloadData()
     }
     
@@ -224,24 +222,12 @@ class FirstViewController: UIViewController, UITableViewDelegate, UITableViewDat
             // CoreDataからデータをfetchしてtasksに格納
             let fetchRequest: NSFetchRequest<Input> = Input.fetchRequest()
             tasks = try context.fetch(fetchRequest)
-            tasks_normal = try context.fetch(fetchRequest)
+            self.number_label.text = "総数: \(tasks.count)"
         } catch {
             print("Core Data Failed")
         }
         cell_number = tasks.count
         tasks_table.reloadData()
-    }
-    
-    func queryExecution2() {
-        let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
-        do {
-            // CoreDataからデータをfetchしてtasksに格納
-            let fetchRequest: NSFetchRequest<Input> = Input.fetchRequest()
-            tasks = try context.fetch(fetchRequest)
-            tasks_normal = try context.fetch(fetchRequest)
-        } catch {
-            print("Core Data Failed")
-        }
     }
     
     func sortTasksByDate() {
@@ -259,12 +245,12 @@ class FirstViewController: UIViewController, UITableViewDelegate, UITableViewDat
         
     // CRUD(Update): This func change isDone from true -> false and Update the data
     func done(indexPath: Int) {
-        let index = modifyIndexPath(indexPath: indexPath)
+        // let index = modifyIndexPath(indexPath: indexPath)
         let today_string: String = makeTodayString()
         let object = NCMBObject(className: "Tasks")
-        object?.setObject(tasks[index].title, forKey: "title")
-        object?.setObject(tasks[index].weight, forKey: "weight")
-        object?.setObject(tasks[index].type_id, forKey: "type_id")
+        object?.setObject(tasks[indexPath].title, forKey: "title")
+        object?.setObject(tasks[indexPath].weight, forKey: "weight")
+        object?.setObject(tasks[indexPath].type_id, forKey: "type_id")
         object?.setObject(false, forKey: "isDone")
         object?.setObject(NCMBUser.current().objectId, forKey: "user_id")
         object?.setObject(today_string, forKey: "doneDate")
@@ -276,7 +262,7 @@ class FirstViewController: UIViewController, UITableViewDelegate, UITableViewDat
             }
         })
         let exp = self.current_user.object(forKey: "exp") as! Int
-        let task_weight = tasks[index].weight
+        let task_weight = tasks[indexPath].weight
         let tmp = Double(task_weight) * (100.0 + Double(self.level)) / 100.0
         self.current_user.setObject(exp + Int(tmp), forKey: "exp")
         self.current_user.saveInBackground({ (error) in
@@ -292,14 +278,14 @@ class FirstViewController: UIViewController, UITableViewDelegate, UITableViewDat
         
         let appDelegate: AppDelegate = UIApplication.shared.delegate as! AppDelegate
         let viewContext = appDelegate.persistentContainer.viewContext
-        let deleteObject = tasks[index] as Input
+        let deleteObject = tasks[indexPath] as Input
         viewContext.delete(deleteObject)
         do{
             try viewContext.save()
         }catch{
             print(error)
         }
-        
+        cell_pointer = 0
         level_container.text = "Level. \(calcLevel()["level"]!)"
         level = calcLevel()["level"]!
         //experience_bar.progress = Float(Int(calcLevel()["diff"]!) / Int(ceil(exp(Double(calcLevel()["level"]!)))))
@@ -307,17 +293,17 @@ class FirstViewController: UIViewController, UITableViewDelegate, UITableViewDat
 
     // CRUD(Delete): This func delete a task from DB forever
     func delete(indexPath: Int) {
-        let index = modifyIndexPath(indexPath: indexPath)
-        print(index)
+        // let index = modifyIndexPath(indexPath: indexPath)
         let appDelegate: AppDelegate = UIApplication.shared.delegate as! AppDelegate
         let viewContext = appDelegate.persistentContainer.viewContext
-        let deleteObject = tasks[index] as Input
+        let deleteObject = tasks[indexPath] as Input
         viewContext.delete(deleteObject)
         do{
             try viewContext.save()
         }catch{
             print(error)
         }
+        cell_pointer = 0
         sortTasksByDate()
         queryExecution()
     }

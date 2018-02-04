@@ -13,6 +13,8 @@ import SCLAlertView
 
 class SignUpViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var email: UITextField!
+    @IBOutlet weak var ruleSwitch: UISwitch!
+    @IBOutlet weak var ruleSwitchLabel: UILabel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -25,16 +27,28 @@ class SignUpViewController: UIViewController, UITextFieldDelegate {
     
     @IBAction func sendEmail() {
         let alertView = SCLAlertView()
-
-        if email.text != "" {
-            alertView.addButton("送信") {
-                NCMBUser.requestAuthenticationMail(self.email.text!, error: nil)
-                self.dismiss(animated: true, completion: nil)
+        
+        if ruleSwitch.isOn {
+            if email.text != "" {
+                alertView.addButton("送信") {
+                    NCMBUser.requestAuthenticationMail(self.email.text!, error: nil)
+                    self.dismiss(animated: true, completion: nil)
+                }
+                alertView.showSuccess(email.text!, subTitle: "にメールを送信しますか?", closeButtonTitle: "閉じる")
+            } else {
+                alertView.showError("Emailを入力してください", subTitle: "", closeButtonTitle: "閉じる")
             }
-            alertView.showSuccess(email.text!, subTitle: "にメールを送信しますか?", closeButtonTitle: "戻る")
         } else {
-            alertView.showSuccess("Emailを入力してください", subTitle: "", closeButtonTitle: "戻る")
+            alertView.showError("利用規約に同意してください", subTitle: "", closeButtonTitle: "閉じる")
         }
+    }
+    
+    @IBAction func getUISwitchValue(_ sender: UISwitch) {
+        ruleSwitchLabel.text = sender.isOn ? "に同意する：はい":"に同意する：いいえ"
+    }
+    
+    @IBAction func showRule() {
+        self.performSegue(withIdentifier: "popup", sender: nil)
     }
     
     @IBAction func goToLogin() {

@@ -24,13 +24,43 @@ class SecondViewController: UIViewController {
     @IBOutlet weak var level_container: UILabel!
     @IBOutlet weak var experience_bar: UIProgressView!
     @IBOutlet weak var graph_view: UIView!
-    @IBOutlet weak var horizontalBarChartView: HorizontalBarChartView!
-    var days_results: Dictionary<String, Int> = ["d0": 0, "d1": 0, "d2": 0, "d3": 0, "d4": 0, "d5": 0, "d6": 0, "d7": 0, "d8": 0, "d9": 0]
-    var weeks_results: Dictionary<String, Int> = ["w0": 0, "w1": 0, "w2": 0, "w3": 0, "w4": 0, "w5": 0, "w6": 0, "w7": 0, "w8": 0, "w9": 0]
-    var months_results: Dictionary<String, Int> = ["m0": 0, "m1": 0, "m2": 0, "m3": 0, "m4": 0, "m5": 0, "m6": 0, "m7": 0, "m8": 0, "m9": 0]
-    let bar_months = ["今月", "1ヶ月前", "2ヶ月前", "3ヶ月前", "4ヶ月前", "5ヶ月前", "6ヶ月前", "7ヶ月前", "8ヶ月前", "9ヶ月前"]
-    let bar_weeks = ["今週", "1週間前", "2週間前", "3週間前", "4週間前", "5週間前", "6週間前", "7週間前", "8週間前", "9週間前"]
-    let bar_days = ["今日", "1日前", "2日前", "3日前", "4日前", "5日前", "6日前", "7日前", "8日前", "9日前"]
+    @IBOutlet weak var horizontalBarChartView: HorizontalBarChartView! {
+        didSet {
+            //x軸設定
+            horizontalBarChartView.xAxis.labelPosition = .bottom //x軸ラベル下側に表示
+            horizontalBarChartView.xAxis.labelFont = UIFont.systemFont(ofSize: 11) //x軸のフォントの大きさ
+            horizontalBarChartView.xAxis.labelCount = Int(10) //x軸に表示するラベルの数
+            horizontalBarChartView.xAxis.labelTextColor = UIColor.white //x軸ラベルの色
+            horizontalBarChartView.xAxis.axisLineColor = UIColor.white //x軸の色
+            horizontalBarChartView.xAxis.axisLineWidth = CGFloat(1) //x軸の太さ
+            horizontalBarChartView.xAxis.drawGridLinesEnabled = false //x軸のグリッド表示(今回は表示しない)
+            
+            //y軸設定
+            horizontalBarChartView.rightAxis.enabled = false //右軸(値)の表示
+            horizontalBarChartView.leftAxis.enabled = true //左軸（値)の表示
+            horizontalBarChartView.leftAxis.axisMinimum = 0 //y左軸最小値
+            horizontalBarChartView.leftAxis.labelFont = UIFont.systemFont(ofSize: 11) //y左軸のフォントの大きさ
+            horizontalBarChartView.leftAxis.labelTextColor = UIColor.white //y軸ラベルの色
+            horizontalBarChartView.leftAxis.axisLineColor = UIColor.white //y左軸の色(今回はy軸消すためにBGと同じ色にしている)
+            horizontalBarChartView.rightAxis.axisLineColor = UIColor.white //y左軸の色(今回はy軸消すためにBGと同じ色にしている)
+            horizontalBarChartView.leftAxis.drawAxisLineEnabled = true //y左軸の表示(今回は表示しない)
+            horizontalBarChartView.rightAxis.drawAxisLineEnabled = true
+            horizontalBarChartView.leftAxis.labelCount = Int(4) //y軸ラベルの表示数
+            horizontalBarChartView.leftAxis.drawGridLinesEnabled = true //y軸のグリッド表示(今回は表示する)
+            horizontalBarChartView.leftAxis.gridColor = UIColor.gray //y軸グリッドの色
+            
+            //その他UI設定
+            horizontalBarChartView.noDataFont = UIFont.systemFont(ofSize: 30) //Noデータ時の表示フォント
+            horizontalBarChartView.noDataTextColor = UIColor.white //Noデータ時の文字色
+            horizontalBarChartView.noDataText = "Keep Waiting" //Noデータ時に表示する文字
+            horizontalBarChartView.chartDescription?.text = nil //Description(今回はなし)
+            horizontalBarChartView.animate(xAxisDuration: 1.2, yAxisDuration: 1.5, easingOption: .easeInOutElastic)//グラフのアニメーション(秒数で設定)
+        }
+    }
+    @IBOutlet weak var segmentedController: UISegmentedControl!
+    var days_results: Dictionary<String, Int> = ["0": 0, "1": 0, "2": 0, "3": 0, "4": 0, "5": 0, "6": 0, "7": 0, "8": 0, "9": 0]
+    var weeks_results: Dictionary<String, Int> = ["0": 0, "1": 0, "2": 0, "3": 0, "4": 0, "5": 0, "6": 0, "7": 0, "8": 0, "9": 0]
+    var months_results: Dictionary<String, Int> = ["0": 0, "1": 0, "2": 0, "3": 0, "4": 0, "5": 0, "6": 0, "7": 0, "8": 0, "9": 0]
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -42,22 +72,19 @@ class SecondViewController: UIViewController {
         horizontalBarChartView.drawBordersEnabled = true
         horizontalBarChartView.scaleXEnabled = false
         horizontalBarChartView.scaleYEnabled = false
-        
-        drawCharts()
-        //setChart(bar_days, values: [100, 40, 60, 40, 30, 70, 120, 80, 30, 10])
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(true)
         
         // 値の初期化
-        days_results = ["d0": 0, "d1": 0, "d2": 0, "d3": 0, "d4": 0, "d5": 0, "d6": 0, "d7": 0, "d8": 0, "d9": 0]
-        weeks_results = ["w0": 0, "w1": 0, "w2": 0, "w3": 0, "w4": 0, "w5": 0, "w6": 0, "w7": 0, "w8": 0, "w9": 0]
-        months_results = ["m0": 0, "m1": 0, "m2": 0, "m3": 0, "m4": 0, "m5": 0, "m6": 0, "m7": 0, "m8": 0, "m9": 0]
+        days_results = ["0": 0, "1": 0, "2": 0, "3": 0, "4": 0, "5": 0, "6": 0, "7": 0, "8": 0, "9": 0]
+        weeks_results = ["0": 0, "1": 0, "2": 0, "3": 0, "4": 0, "5": 0, "6": 0, "7": 0, "8": 0, "9": 0]
+        months_results = ["0": 0, "1": 0, "2": 0, "3": 0, "4": 0, "5": 0, "6": 0, "7": 0, "8": 0, "9": 0]
         
         let query = NCMBQuery(className: "Tasks")
         query?.whereKey("isDone", equalTo: false)
-        // query?.whereKey("user_id", equalTo: )
+        query?.whereKey("user_id", equalTo: NCMBUser.current().objectId!)
         query?.findObjectsInBackground({ (results, error) in
             if (error != nil) {
                 // 検索が失敗した時の処理
@@ -66,14 +93,95 @@ class SecondViewController: UIViewController {
                 // 検索が成功した時の処理
                 self.setTasks(results: results as! [NCMBObject])
                 self.calcEXP()
-                self.drawCharts()
-                print(self.days_results)
+                self.drawCharts(results: self.days_results)
             }
         })
+        drawCharts(results: days_results)
     }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
+    }
+    
+    @IBAction func changeChart(sender: UISegmentedControl) {
+        switch sender.selectedSegmentIndex {
+        case 0:
+            print("Days")
+            drawCharts(results: days_results)
+        case 1:
+            print("Weeks")
+            drawCharts(results: weeks_results)
+        case 2:
+            print("Months")
+            drawCharts(results: months_results)
+        default:
+            print("Nothing")
+        }
+    }
+    
+    // This func draws Charts
+    func drawCharts(results: Dictionary<String, Int>) {
+        let entries = [
+            BarChartDataEntry(x: 0, y: Double(results["9"]!)),
+            BarChartDataEntry(x: 1, y: Double(results["8"]!)),
+            BarChartDataEntry(x: 2, y: Double(results["7"]!)),
+            BarChartDataEntry(x: 3, y: Double(results["6"]!)),
+            BarChartDataEntry(x: 4, y: Double(results["5"]!)),
+            BarChartDataEntry(x: 5, y: Double(results["4"]!)),
+            BarChartDataEntry(x: 6, y: Double(results["3"]!)),
+            BarChartDataEntry(x: 7, y: Double(results["2"]!)),
+            BarChartDataEntry(x: 8, y: Double(results["1"]!)),
+            BarChartDataEntry(x: 9, y: Double(results["0"]!))
+        ]
+        let set = BarChartDataSet(values: entries, label: "経験値")
+        horizontalBarChartView.data = BarChartData(dataSet: set)
+        // アニメーション設定
+        horizontalBarChartView.animate(xAxisDuration: 1.2, yAxisDuration: 1.2)
+        // X軸設定
+        let xaxis = XAxis()
+        if segmentedController.selectedSegmentIndex == 0 {
+            xaxis.valueFormatter = DayBarChartFormatter()
+        } else if segmentedController.selectedSegmentIndex == 1 {
+            xaxis.valueFormatter = WeekBarChartFormatter()
+        } else {
+            xaxis.valueFormatter = MonthBarChartFormatter()
+        }
+        horizontalBarChartView.xAxis.valueFormatter = xaxis.valueFormatter
+        horizontalBarChartView.xAxis.labelPosition = .bottom
+        horizontalBarChartView.xAxis.labelTextColor = UIColor.white
+    }
+    
+    public class DayBarChartFormatter: NSObject, IAxisValueFormatter{
+        // x軸のラベル
+        var xLabel: [String]! = ["9日前", "8日前", "7日前", "6日前", "5日前", "4日前", "3日前", "2日前", "昨日", "今日"]
+        
+        // デリゲート。TableViewのcellForRowAtで、indexで渡されたセルをレンダリングするのに似てる。
+        public func stringForValue(_ value: Double, axis: AxisBase?) -> String {
+            // 0 -> Jan, 1 -> Feb...
+            return xLabel[Int(value)]
+        }
+    }
+    
+    public class WeekBarChartFormatter: NSObject, IAxisValueFormatter{
+        // x軸のラベル
+        var xLabel: [String]! = ["9週前", "8週前", "7週前", "6週前", "5週前", "4週前", "3週前", "2週前", "先週", "今週"]
+        
+        // デリゲート。TableViewのcellForRowAtで、indexで渡されたセルをレンダリングするのに似てる。
+        public func stringForValue(_ value: Double, axis: AxisBase?) -> String {
+            // 0 -> Jan, 1 -> Feb...
+            return xLabel[Int(value)]
+        }
+    }
+    
+    public class MonthBarChartFormatter: NSObject, IAxisValueFormatter{
+        // x軸のラベル
+        var xLabel: [String]! = ["9ヶ月前", "8ヶ月前", "7ヶ月前", "6ヶ月前", "5ヶ月前", "4ヶ月前", "3ヶ月前", "2ヶ月前", "先月", "今日"]
+        
+        // デリゲート。TableViewのcellForRowAtで、indexで渡されたセルをレンダリングするのに似てる。
+        public func stringForValue(_ value: Double, axis: AxisBase?) -> String {
+            // 0 -> Jan, 1 -> Feb...
+            return xLabel[Int(value)]
+        }
     }
     
     func setTasks(results: [NCMBObject]!) {
@@ -81,7 +189,7 @@ class SecondViewController: UIViewController {
     }
     
     func calcEXP() {
-        for tasks_number in 0...tasks.count - 1 {
+        for tasks_number in 0..<tasks.count {
             let interval: Int!
             let weight: Int!
             interval = calcInterval(date: tasks[tasks_number].object(forKey: "doneDate") as! String)
@@ -96,11 +204,10 @@ class SecondViewController: UIViewController {
     // !---   Caution: Task's column "doneDate" should be String and format is "yyyy-mm-dd"   ---!
     func calcInterval(date: String) -> Int {
         let today_array = convertTodayToArray()
-        let today_count: Int = countDaysFromArray(array: today_array)
+        let today_count = countDaysFromArray(array: today_array)
         let donedate_array = convertDoneDateToArray(date: date)
         let donedate_count = countDaysFromArray(array: donedate_array)
-        // let interval = today_count - donedate_count
-        let interval = today_count - donedate_count 
+        let interval = today_count - donedate_count
         return interval
     }
     // !---   Not Completed End   ---!
@@ -108,21 +215,21 @@ class SecondViewController: UIViewController {
     func addEXPToMonth(interval: Int, weight: Int) {
         let tmp = Int(floor(Double(interval) / 30.0))
         if tmp < 10 && tmp >= 0{
-            months_results["m\(tmp)"] = months_results["m\(tmp)"]! + weight
+            months_results["\(tmp)"] = months_results["\(tmp)"]! + weight
         }
     }
     
     func addEXPToWeek(interval: Int, weight: Int) {
         let tmp = Int(floor(Double(interval) / 7.0))
         if tmp < 10 && tmp >= 0 {
-            weeks_results["w\(tmp)"] = weeks_results["w\(tmp)"]! + weight
+            weeks_results["\(tmp)"] = weeks_results["\(tmp)"]! + weight
         }
     }
     
     func addEXPToDay(interval: Int, weight: Int) {
         let tmp = interval
         if tmp < 10 && tmp >= 0{
-            days_results["d\(tmp)"] = days_results["d\(tmp)"]! + weight
+            days_results["\(tmp)"] = days_results["\(tmp)"]! + weight
         }
     }
     
@@ -147,8 +254,7 @@ class SecondViewController: UIViewController {
     }
     // !---   Not Completed End   ---!
 
-    // !---   Not Completed Start   ---!
-    func countDaysFromArray(array: Dictionary<String, Int>) -> Int {
+    private func countDaysFromArray(array: Dictionary<String, Int>) -> Int {
         var count: Int = 0
         let MONTH_DAYS = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]
         let MONTH_DAYS_LEAP = [31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]
@@ -159,24 +265,24 @@ class SecondViewController: UIViewController {
         count = array["d"]!
         
         //Count Months -> Days
-        if array["m"]! % 4 != 0 {
-            for i in 0...array["m"]! - 1 {
+        if array["y"]! % 4 != 0 {
+            for i in 0..<(array["m"]! - 1) {
                 count = count + MONTH_DAYS[i]
             }
         } else {
-            if array["m"]! % 100 == 0 {
-                for i in 0...array["m"]! - 1 {
+            if array["y"]! % 100 == 0 {
+                for i in 0..<(array["m"]! - 1) {
                     count = count + MONTH_DAYS[i]
                 }
             } else {
-                for i in 0...array["m"]! - 1 {
+                for i in 0..<(array["m"]! - 1) {
                     count = count + MONTH_DAYS_LEAP[i]
                 }
             }
         }
         
         // Count Years -> Days
-        for i in 1...array["y"]! - 1 {
+        for i in 1...(array["y"]! - 1) {
             if i % 4 != 0 {
                 count = count + YEAR_DAYS
             } else {
@@ -189,50 +295,5 @@ class SecondViewController: UIViewController {
         }
         return count
     }
-    // !---   Not Completed End   ---!
-    
-    // This func draws Charts
-    func drawCharts() {
-        let entries = [
-            BarChartDataEntry(x: 0, y: Double(days_results["d0"]!)),
-            BarChartDataEntry(x: 1, y: Double(days_results["d1"]!)),
-            BarChartDataEntry(x: 2, y: Double(days_results["d2"]!)),
-            BarChartDataEntry(x: 3, y: Double(days_results["d3"]!)),
-            BarChartDataEntry(x: 4, y: Double(days_results["d4"]!)),
-            BarChartDataEntry(x: 5, y: Double(days_results["d5"]!)),
-            BarChartDataEntry(x: 6, y: Double(days_results["d6"]!)),
-            BarChartDataEntry(x: 7, y: Double(days_results["d7"]!)),
-            BarChartDataEntry(x: 8, y: Double(days_results["d8"]!)),
-            BarChartDataEntry(x: 9, y: Double(days_results["d9"]!))
-        ]
-        let set = BarChartDataSet(values: entries, label: "Data")
-        //let set = LineChartDataSet(values: entries, label: "Data")
-        horizontalBarChartView.data = BarChartData(dataSet: set)
-        //horizontalBarChartView.data = LineChartData(dataSet: set)
-        //graph_view.addSubview(horizontalBarChartView)
-    }
-    
-    /*
-    func setChart(dataPoints: [String], values: [Double]) {
-        var dataEntries: [BarChartDataEntry] = []
-        
-        for i in 0..<dataPoints.count {
-            var dataEntries: [BarChartDataEntry] = []
-            
-            for i in 0..<dataPoints.count {
-                let dataEntry = BarChartDataEntry(x: Double(i), y: Double(values[i]))
-                dataEntries.append(dataEntry)
-            }
-            
-            let chartDataSet = BarChartDataSet(values: dataEntries, label: "降水量")
-            let chartData = BarChartData(value: bar_months, dataSet: chartDataSet)
-            horizontalBarChartView.data = chartData
-        }
-        
-        let chartDataSet = BarChartDataSet(values: dataEntries, label: "降水量")
-        let chartData = BarChartData(value: bar_months, dataSet: chartDataSet)
-        horizontalBarChartView.data = chartData
-    }
- */
 }
 

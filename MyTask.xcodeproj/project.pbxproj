@@ -21,6 +21,7 @@
 		CD527F3820071BE70018D37C /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CD527F3620071BE70018D37C /* Main.storyboard */; };
 		CD527F3A20071BE70018D37C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CD527F3920071BE70018D37C /* Assets.xcassets */; };
 		CD527F3D20071BE70018D37C /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CD527F3B20071BE70018D37C /* LaunchScreen.storyboard */; };
+		CD96C8B52026F75300F9B3A8 /* PopUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD96C8B42026F75300F9B3A8 /* PopUpViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -41,6 +42,7 @@
 		CD527F3920071BE70018D37C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		CD527F3C20071BE70018D37C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		CD527F3E20071BE70018D37C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		CD96C8B42026F75300F9B3A8 /* PopUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopUpViewController.swift; sourceTree = "<group>"; };
 		E9EC69F96D8AAB22A1D8856D /* Pods_MyTask.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MyTask.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -102,6 +104,7 @@
 				CD1DDA4320108FC300446F59 /* SignUpViewController.swift */,
 				CD1DDA4520108FD800446F59 /* ForgetPasswordViewController.swift */,
 				CD527F3420071BE70018D37C /* SecondViewController.swift */,
+				CD96C8B42026F75300F9B3A8 /* PopUpViewController.swift */,
 				CD1FB376202343D20033390D /* InputCell.swift */,
 				CD1FB378202403A00033390D /* InputModel.xcdatamodeld */,
 				CD527F3620071BE70018D37C /* Main.storyboard */,
@@ -260,6 +263,7 @@
 				CD1DDA482011D8E300446F59 /* SettingController.swift in Sources */,
 				CD1DDA422010888700446F59 /* LoginViewController.swift in Sources */,
 				CD1DDA4420108FC300446F59 /* SignUpViewController.swift in Sources */,
+				CD96C8B52026F75300F9B3A8 /* PopUpViewController.swift in Sources */,
 				CD527F3520071BE70018D37C /* SecondViewController.swift in Sources */,
 				CD1FB37A202403A00033390D /* InputModel.xcdatamodeld in Sources */,
 				CD1FB377202343D20033390D /* InputCell.swift in Sources */,

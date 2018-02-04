@@ -30,12 +30,18 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
     }
     // !---   Not Completed End   ---!
     
+    override func viewDidAppear(_ animated: Bool) {
+        email.text = ""
+        passwd.text = ""
+    }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
     
     // !---   Not Completed Start   ---!
     @IBAction func login() {
+        error.text = ""
         NCMBUser.logInWithMailAddress(inBackground: email.text, password: passwd.text) { (user, error) in
             if error != nil {
                 // Failure of Login
@@ -44,6 +50,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
             } else {
                 // Success of Login
                 print(error)
+                self.dismiss(animated: true, completion: nil)
                 self.performSegue(withIdentifier: "toFirst", sender: nil)
             }
         }

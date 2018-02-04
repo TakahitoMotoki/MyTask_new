@@ -38,6 +38,7 @@ class SettigController: UIViewController, UITableViewDelegate, UITableViewDataSo
         alertView.addButton("ログアウト") {
             NCMBUser.logOut()
             self.dismiss(animated: true, completion: nil)
+            self.performSegue(withIdentifier: "goToLogin", sender: nil)
         }
         alertView.showSuccess("ログアウトしますか?", subTitle: "", closeButtonTitle: "キャンセル")
         

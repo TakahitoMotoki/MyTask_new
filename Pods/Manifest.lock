@@ -1,0 +1,87 @@
+PODS:
+  - Charts (3.0.5):
+    - Charts/Core (= 3.0.5)
+  - Charts/Core (3.0.5)
+  - DZNEmptyDataSet (1.8.1)
+  - FontAwesomeKit (2.2.1):
+    - FontAwesomeKit/Core (= 2.2.1)
+    - FontAwesomeKit/FontAwesome (= 2.2.1)
+    - FontAwesomeKit/FoundationIcons (= 2.2.1)
+    - FontAwesomeKit/IonIcons (= 2.2.1)
+    - FontAwesomeKit/Material (= 2.2.1)
+    - FontAwesomeKit/Octicons (= 2.2.1)
+    - FontAwesomeKit/Zocial (= 2.2.1)
+  - FontAwesomeKit/Core (2.2.1)
+  - FontAwesomeKit/FontAwesome (2.2.1):
+    - FontAwesomeKit/Core
+  - FontAwesomeKit/FoundationIcons (2.2.1):
+    - FontAwesomeKit/Core
+  - FontAwesomeKit/IonIcons (2.2.1):
+    - FontAwesomeKit/Core
+  - FontAwesomeKit/Material (2.2.1):
+    - FontAwesomeKit/Core
+  - FontAwesomeKit/Octicons (2.2.1):
+    - FontAwesomeKit/Core
+  - FontAwesomeKit/Zocial (2.2.1):
+    - FontAwesomeKit/Core
+  - NCMB (2.4.2)
+  - RAMAnimatedTabBarController (3.0.1)
+  - SCLAlertView (0.8)
+  - SwiftyButton (0.8.0)
+  - SWTableViewCell (0.3.7)
+  - TextFieldEffects (1.4.0)
+
+DEPENDENCIES:
+  - Charts (from `https://github.com/danielgindi/Charts.git`)
+  - DZNEmptyDataSet
+  - FontAwesomeKit (from `https://github.com/PrideChung/FontAwesomeKit.git`)
+  - NCMB (from `https://github.com/NIFTYCloud-mbaas/ncmb_ios.git`)
+  - RAMAnimatedTabBarController
+  - SCLAlertView (from `https://github.com/vikmeup/SCLAlertView-Swift.git`)
+  - SwiftyButton (from `https://github.com/TakeScoop/SwiftyButton.git`)
+  - SWTableViewCell
+  - TextFieldEffects
+
+EXTERNAL SOURCES:
+  Charts:
+    :git: https://github.com/danielgindi/Charts.git
+  FontAwesomeKit:
+    :git: https://github.com/PrideChung/FontAwesomeKit.git
+  NCMB:
+    :git: https://github.com/NIFTYCloud-mbaas/ncmb_ios.git
+  SCLAlertView:
+    :git: https://github.com/vikmeup/SCLAlertView-Swift.git
+  SwiftyButton:
+    :git: https://github.com/TakeScoop/SwiftyButton.git
+
+CHECKOUT OPTIONS:
+  Charts:
+    :commit: b1191bc146b98fddb0cab7324f94a993ffa3d74f
+    :git: https://github.com/danielgindi/Charts.git
+  FontAwesomeKit:
+    :commit: ed5eb02f4bcf76e218bb1c966c551a7b5240b6b4
+    :git: https://github.com/PrideChung/FontAwesomeKit.git
+  NCMB:
+    :commit: 3f23581e19d9ad77b4f14bd4beefbc570bb58316
+    :git: https://github.com/NIFTYCloud-mbaas/ncmb_ios.git
+  SCLAlertView:
+    :commit: 6f24418fda5cf7d285b765c283ddee6c2b30321b
+    :git: https://github.com/vikmeup/SCLAlertView-Swift.git
+  SwiftyButton:
+    :commit: f9ec59a5456e2a2ad6b8e26b86c7adb6293c05d0
+    :git: https://github.com/TakeScoop/SwiftyButton.git
+
+SPEC CHECKSUMS:
+  Charts: 8a244acbb5054c54c1a54c3e82516f3aee30e68d
+  DZNEmptyDataSet: 9525833b9e68ac21c30253e1d3d7076cc828eaa7
+  FontAwesomeKit: 3614979b3dbb0ec3f7fac1bd760b91f66c31db67
+  NCMB: 648c727c8905c801e521b5e580436a25917cf5f7
+  RAMAnimatedTabBarController: 78bafa7a1c1b162f0d4a86a936c0d1ee4a06ffcc
+  SCLAlertView: 03a1aa8093c11bf880f46c6aeedc9da91f1093ad
+  SwiftyButton: b7e7cf4e896d0c9d51609d049786313d915d1a0c
+  SWTableViewCell: 2a94aadc9d47b2b611fa064566bf57948b95b579
+  TextFieldEffects: 4ee41b5216e674d55fb6ac25107bf1af7629176f
+
+PODFILE CHECKSUM: e725d3a61071dc07225d11f9a73e36f1680d8ecd
+
+COCOAPODS: 1.3.1

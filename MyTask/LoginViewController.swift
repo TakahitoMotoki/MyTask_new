@@ -15,7 +15,6 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var passwd: UITextField!
     @IBOutlet weak var error: UILabel!
     
-    // !---   Not Completed Start   ---!
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -28,7 +27,6 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         email.delegate = self
         passwd.delegate = self
     }
-    // !---   Not Completed End   ---!
     
     override func viewDidAppear(_ animated: Bool) {
         email.text = ""
@@ -39,7 +37,6 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         super.didReceiveMemoryWarning()
     }
     
-    // !---   Not Completed Start   ---!
     @IBAction func login() {
         error.text = ""
         NCMBUser.logInWithMailAddress(inBackground: email.text, password: passwd.text) { (user, error) in
@@ -54,21 +51,15 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
                 self.performSegue(withIdentifier: "toFirst", sender: nil)
             }
         }
-        
     }
-    // !---   Not Completed End   ---!
 
-    // !---   Not Completed Start   ---!
     @IBAction func goToSignUp() {
         self.performSegue(withIdentifier: "toSignUp", sender: nil)
     }
-    // !---   Not Completed End   ---!
     
-    // !---   Not Completed Start   ---!
-    @IBAction func forgetPassword() {
-        
+    @IBAction func goToPasswdReset() {
+        self.performSegue(withIdentifier: "goToPasswdReset", sender: nil)
     }
-    // !---   Not Completed End   ---!
     
     // This func is used to close Keyboard called by TextField
     func textFieldShouldReturn(_ textField: UITextField) -> Bool{

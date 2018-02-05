@@ -35,6 +35,7 @@ class TasksCreateController: UIViewController, UIPickerViewDelegate, UIPickerVie
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         weight_textfield.text = "50"
         
         create_button.colors = .init(button: UIColor(red: 0, green: 0, blue: 0.6, alpha: 0.52), shadow: UIColor(red: 0, green: 0, blue: 1.0, alpha: 1.0))

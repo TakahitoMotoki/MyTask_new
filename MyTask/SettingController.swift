@@ -81,7 +81,7 @@ class SettigController: UIViewController, UITableViewDelegate, UITableViewDataSo
         if indexPath[0] == 0 {
             print("")
         } else if indexPath[0] == 1 {
-            print("")
+            self.performSegue(withIdentifier: "goToLicense", sender: nil)
         } else {
             let alertView = SCLAlertView()
             alertView.addButton("ログアウト") {

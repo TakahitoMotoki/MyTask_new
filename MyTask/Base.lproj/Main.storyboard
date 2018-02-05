@@ -761,7 +761,7 @@
                     <connections>
                         <outlet property="settingTable" destination="AuY-2i-GcL" id="owA-wQ-iZD"/>
                         <segue destination="Zhu-IZ-3k9" kind="presentation" identifier="goToLogin" id="Q20-3i-gXC"/>
-                        <segue destination="M1t-Eu-haJ" kind="presentation" modalTransitionStyle="crossDissolve" id="Xoj-w7-ft1"/>
+                        <segue destination="M1t-Eu-haJ" kind="presentation" identifier="goToLicense" modalTransitionStyle="crossDissolve" id="Xoj-w7-ft1"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="tyl-Ed-iuZ" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -809,7 +809,7 @@
                                     <constraint firstAttribute="height" constant="44" id="0b5-Ei-hp9"/>
                                     <constraint firstAttribute="width" constant="200" id="7vv-eI-qUO"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
@@ -850,6 +850,9 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="byj-32-Vw1"/>
                     </view>
+                    <connections>
+                        <outlet property="popUpView" destination="UZR-86-4IX" id="ucQ-qA-o2W"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="POP-Vz-qsE" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

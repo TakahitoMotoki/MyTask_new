@@ -120,6 +120,12 @@ class FirstViewController: UIViewController, UITableViewDelegate, UITableViewDat
         cell.weightImage.clipsToBounds = true
         if tasks[index].days < 10000000 {
             cell.dateLabel.text = "期限: \(tasks[index].date!)"
+            let today_days = countDaysFromArray(array: convertTodayToArray())
+            if tasks[index].days == today_days {
+                cell.dateLabel.textColor = UIColor.yellow
+            } else if tasks[index].days < today_days {
+                cell.dateLabel.textColor = UIColor.red
+            }
         } else {
             cell.dateLabel.text = ""
         }
@@ -247,9 +253,12 @@ class FirstViewController: UIViewController, UITableViewDelegate, UITableViewDat
     func done(indexPath: Int) {
         // let index = modifyIndexPath(indexPath: indexPath)
         let today_string: String = makeTodayString()
+        let task_weight = tasks[indexPath].weight
+        let tmp = Double(task_weight) * (100.0 + Double(self.level)) / 100.0
+        
         let object = NCMBObject(className: "Tasks")
         object?.setObject(tasks[indexPath].title, forKey: "title")
-        object?.setObject(tasks[indexPath].weight, forKey: "weight")
+        object?.setObject(Int(tmp), forKey: "weight")
         object?.setObject(tasks[indexPath].type_id, forKey: "type_id")
         object?.setObject(false, forKey: "isDone")
         object?.setObject(NCMBUser.current().objectId, forKey: "user_id")
@@ -262,8 +271,6 @@ class FirstViewController: UIViewController, UITableViewDelegate, UITableViewDat
             }
         })
         let exp = self.current_user.object(forKey: "exp") as! Int
-        let task_weight = tasks[indexPath].weight
-        let tmp = Double(task_weight) * (100.0 + Double(self.level)) / 100.0
         self.current_user.setObject(exp + Int(tmp), forKey: "exp")
         self.current_user.saveInBackground({ (error) in
             if error != nil {
@@ -346,11 +353,63 @@ class FirstViewController: UIViewController, UITableViewDelegate, UITableViewDat
         return year + "-" + month + "-" + day
     }
     
+    func convertTodayToArray() -> Dictionary<String, Int> {
+        var today_array: Dictionary<String, Int> = ["y": 0, "m": 0, "d": 0]
+        let now = Date()
+        let calendar = Calendar.current
+        today_array["y"] = calendar.component(.year, from: now)
+        today_array["m"] = calendar.component(.month, from: now)
+        today_array["d"] = calendar.component(.day, from: now)
+        return today_array
+    }
+    
     private func sortCount() -> Int {
         var count = 0
         for index in 0..<tasks.count {
             if tasks[index].type_id == sort_pointer {
                 count = count + 1
+            }
+        }
+        return count
+    }
+    
+    private func countDaysFromArray(array: Dictionary<String, Int>) -> Int {
+        var count: Int = 0
+        let MONTH_DAYS = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]
+        let MONTH_DAYS_LEAP = [31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]
+        let YEAR_DAYS = 365
+        let YEAR_DAYS_LEAP = 366
+        
+        // Count Days
+        count = array["d"]!
+        
+        //Count Months -> Days
+        if array["y"]! % 4 != 0 {
+            for i in 0..<(array["m"]! - 1) {
+                count = count + MONTH_DAYS[i]
+            }
+        } else {
+            if array["y"]! % 100 == 0 {
+                for i in 0..<(array["m"]! - 1) {
+                    count = count + MONTH_DAYS[i]
+                }
+            } else {
+                for i in 0..<(array["m"]! - 1) {
+                    count = count + MONTH_DAYS_LEAP[i]
+                }
+            }
+        }
+        
+        // Count Years -> Days
+        for i in 1...(array["y"]! - 1) {
+            if i % 4 != 0 {
+                count = count + YEAR_DAYS
+            } else {
+                if i % 100 == 0 {
+                    count = count + YEAR_DAYS
+                } else {
+                    count = count + YEAR_DAYS_LEAP
+                }
             }
         }
         return count

@@ -9,11 +9,11 @@
 import UIKit
 
 class PopUpViewController: UIViewController {
+    @IBOutlet weak var popUpView: UIView!
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
+        popUpView.layer.cornerRadius = 10
     }
 
     override func didReceiveMemoryWarning() {

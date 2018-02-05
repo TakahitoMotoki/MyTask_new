@@ -13,7 +13,7 @@ import SCLAlertView
 
 class SettigController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     @IBOutlet weak var settingTable: UITableView!
-    let sectionTitle = ["  Inputs", "  ライセンス", "  アカウント"]
+    let sectionTitle = ["  ライセンス", "  アカウント"]
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -64,12 +64,9 @@ class SettigController: UIViewController, UITableViewDelegate, UITableViewDataSo
     // Decide the value of mycell
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = settingTable.dequeueReusableCell(withIdentifier: "mycell") as! UITableViewCell
-        print(indexPath[0])
         if indexPath[0] == 0 {
-            cell.textLabel?.text = "履歴"
-        } else if indexPath[0] == 1 {
             cell.textLabel?.text = "ライセンス"
-        } else {
+        } else if indexPath[0] == 1 {
             cell.textLabel?.text = "ログアウト"
         }
         cell.textLabel?.textColor = UIColor(red: 235.0 / 255.0, green: 235.0 / 255.0, blue: 7.0 / 8.0, alpha: 1.0)
@@ -79,10 +76,8 @@ class SettigController: UIViewController, UITableViewDelegate, UITableViewDataSo
     // This function is called when mycell is tapped
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if indexPath[0] == 0 {
-            print("")
-        } else if indexPath[0] == 1 {
             self.performSegue(withIdentifier: "goToLicense", sender: nil)
-        } else {
+        } else if indexPath[0] == 1 {
             let alertView = SCLAlertView()
             alertView.addButton("ログアウト") {
                 NCMBUser.logOut()

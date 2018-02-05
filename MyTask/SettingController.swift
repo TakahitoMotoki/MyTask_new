@@ -12,11 +12,14 @@ import NCMB
 import SCLAlertView
 
 class SettigController: UIViewController, UITableViewDelegate, UITableViewDataSource {
-    let sectionTitle = ["Inputs", "ライセンス", "アカウント"]
+    @IBOutlet weak var settingTable: UITableView!
+    let sectionTitle = ["  Inputs", "  ライセンス", "  アカウント"]
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        settingTable.separatorColor = UIColor.clear
     }
+    
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -25,13 +28,27 @@ class SettigController: UIViewController, UITableViewDelegate, UITableViewDataSo
     
     // !---   TableView Required Method Start   ---!
     // Decide the number of sections
-    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    func numberOfSections(in tableView: UITableView) -> Int {
         return sectionTitle.count
     }
     
+    // Upper margin of section
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return 80
+    }
+    
+    // Bottom margin of section
+    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+        return 0
+    }
+    
     // Returns Section's title
-    func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return sectionTitle[section] as? String
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let label = UILabel()
+        label.text = sectionTitle[section]
+        label.backgroundColor = UIColor(red: 38.0 / 255.0, green: 46.0 / 255.0, blue: 41.0 / 255.0, alpha: 1.0)
+        label.textColor = UIColor(red: 235.0 / 255.0, green: 235.0 / 255.0, blue: 7.0 / 8.0, alpha: 1.0)
+        return label
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -42,12 +59,12 @@ class SettigController: UIViewController, UITableViewDelegate, UITableViewDataSo
         } else {
             return 1
         }
-        return 1
     }
     
     // Decide the value of mycell
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = UITableViewCell(style: .default, reuseIdentifier: "mycell")
+        let cell = settingTable.dequeueReusableCell(withIdentifier: "mycell") as! UITableViewCell
+        print(indexPath[0])
         if indexPath[0] == 0 {
             cell.textLabel?.text = "履歴"
         } else if indexPath[0] == 1 {
@@ -55,6 +72,7 @@ class SettigController: UIViewController, UITableViewDelegate, UITableViewDataSo
         } else {
             cell.textLabel?.text = "ログアウト"
         }
+        cell.textLabel?.textColor = UIColor(red: 235.0 / 255.0, green: 235.0 / 255.0, blue: 7.0 / 8.0, alpha: 1.0)
         return cell
     }
     
@@ -73,6 +91,7 @@ class SettigController: UIViewController, UITableViewDelegate, UITableViewDataSo
             }
             alertView.showSuccess("ログアウトしますか?", subTitle: "", closeButtonTitle: "キャンセル")
         }
+        settingTable.reloadData()
     }
     // !---   TableView Required Method End   ---!
 }

@@ -15,6 +15,7 @@
 		CD1DDA482011D8E300446F59 /* SettingController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD1DDA472011D8E300446F59 /* SettingController.swift */; };
 		CD1FB377202343D20033390D /* InputCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD1FB376202343D20033390D /* InputCell.swift */; };
 		CD1FB37A202403A00033390D /* InputModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = CD1FB378202403A00033390D /* InputModel.xcdatamodeld */; };
+		CD4DD582202892B800F9414C /* LicenseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD4DD581202892B800F9414C /* LicenseViewController.swift */; };
 		CD527F3120071BE70018D37C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD527F3020071BE70018D37C /* AppDelegate.swift */; };
 		CD527F3320071BE70018D37C /* FirstViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD527F3220071BE70018D37C /* FirstViewController.swift */; };
 		CD527F3520071BE70018D37C /* SecondViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD527F3420071BE70018D37C /* SecondViewController.swift */; };
@@ -35,6 +36,7 @@
 		CD1DDA472011D8E300446F59 /* SettingController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingController.swift; sourceTree = "<group>"; };
 		CD1FB376202343D20033390D /* InputCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputCell.swift; sourceTree = "<group>"; };
 		CD1FB379202403A00033390D /* InputModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = InputModel.xcdatamodel; sourceTree = "<group>"; };
+		CD4DD581202892B800F9414C /* LicenseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = LicenseViewController.swift; path = ../../LicenseViewController.swift; sourceTree = "<group>"; };
 		CD527F2D20071BE70018D37C /* MyTask.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MyTask.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CD527F3020071BE70018D37C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		CD527F3220071BE70018D37C /* FirstViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstViewController.swift; sourceTree = "<group>"; };
@@ -105,6 +107,7 @@
 				CD1DDA472011D8E300446F59 /* SettingController.swift */,
 				CD1DDA4320108FC300446F59 /* SignUpViewController.swift */,
 				CD1DDA4520108FD800446F59 /* ForgetPasswordViewController.swift */,
+				CD4DD581202892B800F9414C /* LicenseViewController.swift */,
 				CD527F3420071BE70018D37C /* SecondViewController.swift */,
 				CD96C8B6202703A500F9B3A8 /* HelpViewController.swift */,
 				CD96C8B42026F75300F9B3A8 /* PopUpViewController.swift */,
@@ -191,7 +194,7 @@
 /* Begin PBXShellScriptBuildPhase section */
 		3AD3D23A4D42ECEF65E7A2CB /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 8;
+			buildActionMask = 12;
 			files = (
 			);
 			inputPaths = (
@@ -202,14 +205,14 @@
 			outputPaths = (
 				"$(DERIVED_FILE_DIR)/Pods-MyTask-checkManifestLockResult.txt",
 			);
-			runOnlyForDeploymentPostprocessing = 1;
+			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
 		543C56AE3404653796534DB1 /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 8;
+			buildActionMask = 12;
 			files = (
 			);
 			inputPaths = (
@@ -217,14 +220,14 @@
 			name = "[CP] Copy Pods Resources";
 			outputPaths = (
 			);
-			runOnlyForDeploymentPostprocessing = 1;
+			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-MyTask/Pods-MyTask-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		E85A28693952CACE54019854 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 8;
+			buildActionMask = 12;
 			files = (
 			);
 			inputPaths = (
@@ -251,7 +254,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftyButton.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/TextFieldEffects.framework",
 			);
-			runOnlyForDeploymentPostprocessing = 1;
+			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-MyTask/Pods-MyTask-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
@@ -270,6 +273,7 @@
 				CD527F3520071BE70018D37C /* SecondViewController.swift in Sources */,
 				CD1FB37A202403A00033390D /* InputModel.xcdatamodeld in Sources */,
 				CD1FB377202343D20033390D /* InputCell.swift in Sources */,
+				CD4DD582202892B800F9414C /* LicenseViewController.swift in Sources */,
 				CD96C8B7202703A500F9B3A8 /* HelpViewController.swift in Sources */,
 				CD527F3120071BE70018D37C /* AppDelegate.swift in Sources */,
 				CD1422FD200CF00E00EE1DBC /* TasksCreateController.swift in Sources */,
